@@ -242,11 +242,12 @@ const currentPath = Astro.url.pathname;
                 </svg>
               </a>
             </div>
-            <div class="text-4xl">🌻</div>
+            <div class="text-4xl h-16 flex flex-col items-center">
+				<Fleur/>
+			</div>
           </div>
         </div>
 
-        <!-- Copyright -->
         <div
           class="text-center mt-8 pt-8 border-t border-white/20 text-sm opacity-75"
         >
@@ -255,9 +256,8 @@ const currentPath = Astro.url.pathname;
       </div>
     </footer>
 
-    <!-- Scripts -->
+
     <script>
-      // Toggle menu mobile
       const toggleBtn = document.getElementById("mobile-menu-toggle");
       const mobileMenu = document.getElementById("mobile-menu");
 
@@ -265,7 +265,6 @@ const currentPath = Astro.url.pathname;
         mobileMenu?.classList.toggle("hidden");
       });
 
-      // Fermer le menu au clic sur un lien
       const mobileLinks = mobileMenu?.querySelectorAll("a");
       mobileLinks?.forEach((link) => {
         link.addEventListener("click", () => {
@@ -273,7 +272,6 @@ const currentPath = Astro.url.pathname;
         });
       });
 
-      // Intersection Observer pour animations au scroll
       const observerOptions = {
         threshold: 0.1,
         rootMargin: "0px 0px -100px 0px",
@@ -288,14 +286,12 @@ const currentPath = Astro.url.pathname;
         });
       }, observerOptions);
 
-      // Observer tous les éléments avec la classe 'animate-on-scroll'
       document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".animate-on-scroll").forEach((el) => {
           observer.observe(el);
         });
       });
 
-      // Smooth scroll pour les ancres
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           const href = this.getAttribute("href");
