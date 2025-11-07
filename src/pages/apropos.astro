@@ -1,0 +1,78 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Fleur from "../components/Fleur.astro";
+---
+
+<Layout title="À propos - Eloïs Henry">
+  <section class="py-16 px-6">
+    <div
+      class="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-12"
+    >
+      <div class="w-full md:w-1/2 flex justify-center">
+        <img
+          src="/photoapropos.png"
+          alt="Photo Eloïs"
+          class="w-64 h-64 md:w-80 md:h-80 rounded-2xl object-cover"
+        />
+      </div>
+
+      <div class="w-full md:w-1/2">
+        <h1
+          class="text-4xl md:text-5xl font-bold text-accent leading-tight mb-2"
+        >
+          Hello,
+        </h1>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-primary mb-6">
+          Moi c’est Eloïs
+        </h2>
+        <p class="text-gray-700 mb-6">
+          Passionnée par la communication et la création, je suis déterminée à
+          devenir celle que je veux être. Je donne mon maximum dans les projets
+          que j'entreprends et suis toujours prête à relever de nouveaux défis.
+        </p>
+        <a
+          href="#timeline"
+          class="inline-block bg-accent text-white px-6 py-2 mt-5 rounded-full font-bold shadow-md"
+          >En savoir plus</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <section id="timeline" class="relative bg-secondary py-12">
+    <div class="max-w-screen-xl mx-auto px-6">
+      <div class="mx-auto max-w-4xl">
+        <div class="relative my-8">
+          <div class="w-full border-t-4 border-dashed border-black/70"></div>
+          <div
+            class="grid grid-cols-3 gap-4 text-center mt-6 text-sm text-black"
+          >
+            <div>
+              <div class="font-bold">2007</div>
+            </div>
+            <div>
+              <div class="font-bold">2017 - 2021</div>
+              <div class="mt-1">
+                Brevet des collèges<br />Collège Albert Jacquard
+              </div>
+            </div>
+            <div>
+              <div class="font-bold">2021 - 2024</div>
+              <div class="mt-1">
+                Baccalauréat général<br />Spécialité SES et Mathématiques
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute right-5 -top-8">
+      <Fleur
+        petal="var(--color-primary)"
+        centre-fleur="var(--color-secondary)"
+        size="64"
+      />
+    </div>
+  </section>
+</Layout>

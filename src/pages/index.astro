@@ -1,11 +1,95 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import Fleur from "../components/Fleur.astro";
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Accueil - Eloïs Henry">
+  <section
+    class="hero min-h-screen flex flex-col items-center justify-center py-20 px-4"
+  >
+    <img
+      src="/3D_no.png"
+      alt="ELOÏS HENRY titre 3D"
+      class="w-full max-w-3xl h-auto animate-float-3d select-none"
+    />
+
+    <div class="text-center mt-20 px-4">
+      <p class="subtitle-script text-4xl mb-8">
+        Filmer. <span class="text-neutral">Créer.</span>
+        <span class="text-primary">Partager.</span>
+      </p>
+      <div class="flex gap-4 justify-center flex-wrap">
+        <button class="btn btn-primary">
+          <img src="/Group.png" alt="Contact" class="w-6 h-6 inline" /></button
+        >
+      </div>
+    </div>
+  </section>
+  <section id="qui-suis-je" class="py-16 px-4 bg-base-100">
+    <div class="max-w-screen-2xl mx-auto">
+      <div class="text-center mb-12">
+        <div class="flex items-center justify-center gap-4 mb-4">
+          <div class="h-1 bg-accent flex-grow max-w-xs"></div>
+          <h2 class="text-3xl md:text-5xl font-bold">
+            Communicante et UX designer
+          </h2>
+          <div class="h-1 bg-accent flex-grow max-w-xs"></div>
+        </div>
+      </div>
+      <div
+        class="flex flex-col md:flex-row items-center justify-center gap-8 mb-12"
+      >
+        <div class="text-center">
+          <p class="text-2xl md:text-3xl font-bold">18ans</p>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="w-1 h-16 bg-accent mb-4"></div>
+          <Fleur />
+          <div class="w-1 h-16 bg-accent mt-4"></div>
+        </div>
+
+        <div class="text-center">
+          <p class="text-2xl md:text-3xl font-bold">
+            Etudiante en 2e année de BUT MMI
+          </p>
+        </div>
+      </div>
+
+      <div class="h-1 bg-accent mb-12"></div>
+
+      <div class="pt-10 mb-12">
+        <div class="mx-auto max-w-5xl">
+          <div
+            class="bg-[#f0c93b] rounded-br-4xl rounded-tl-4xl p-6 md:p-12 flex flex-col md:flex-row items-center gap-8"
+          >
+            <div class="w-full md:w-1/2 flex justify-center md:justify-start">
+              <img
+                src="/photo-elois.jpg"
+                alt="Eloïs Henry avec appareil photo"
+                class="w-64 md:w-72 h-auto rounded-lg shadow-lg grayscale hover:grayscale-0 transition-all duration-500 object-cover"
+              />
+            </div>
+            <div class="w-full md:w-1/2">
+              <p
+                class="text-base md:text-lg leading-relaxed mb-6 text-gray-900"
+              >
+                Hello, moi c'est Eloïs. Actuellement étudiante en 2e année de
+                BUT MMI (métiers du multimédia et de l'internet), je suis
+                déterminée à mettre mes compétences au service de projets
+                concrets.
+              </p>
+              <a
+                href="#contact"
+                class="inline-block bg-[#2b2bd6] text-white px-6 py-2 rounded-full font-bold shadow-md"
+              >
+                En savoir plus
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
 </Layout>

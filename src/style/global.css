@@ -1,0 +1,125 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "eloishenry";
+  default: true;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-primary: #FF076F;
+  --color-primary-content: #FFFFFF;
+  --color-secondary: #FFC700;
+  --color-secondary-content: #000000;
+  --color-accent: #1C1CB5;
+  --color-accent-content: #FFFFFF;
+  --color-neutral: #000000;
+  --color-neutral-content: #FFFFFF;
+  --color-base-100: #FAFAFA;
+  --color-base-200: #F0F0F0;
+  --color-base-300: #E5E5E5;
+  --color-base-content: #000000;
+  --color-info: #3ABFF8;
+  --color-info-content: #FFFFFF;
+  --color-success: #36D399;
+  --color-success-content: #FFFFFF;
+  --color-warning: #FBBD23;
+  --color-warning-content: #000000;
+  --color-error: #F87272;
+  --color-error-content: #FFFFFF;
+  --radius-box: 1.5rem;
+  --radius-field: 9999px;
+  --border: 4px;
+}
+
+@layer base {
+  html {
+    font-family: Arial, Helvetica, sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-base-100 text-base-content antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: Impact, 'Haettenschweiler', 'Arial Black', sans-serif;
+    font-weight: 900;
+  }
+}
+
+@layer components {
+  .title-3d {
+    font-family: Impact, sans-serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 900;
+    color: #FF076F;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+    text-shadow: 
+      4px 4px 0px #8B003C,
+      8px 8px 0px rgba(139, 0, 60, 0.7),
+      12px 12px 0px rgba(139, 0, 60, 0.5);
+  }
+  
+  .subtitle-script {
+    font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    font-weight: 400;
+  }
+
+  .title-3d-rotating {
+    font-family: Impact, sans-serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 900;
+    color: #FF076F;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+    text-shadow: 
+      4px 4px 0px #8B003C,
+      8px 8px 0px rgba(139, 0, 60, 0.7),
+      12px 12px 0px rgba(139, 0, 60, 0.5);
+    transform-style: preserve-3d;
+    animation: rotate3d 10s infinite linear;
+  }
+
+  @keyframes rotate3d {
+    0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+}
+@layer components {
+  .animate-float-3d {
+    animation: float3DImage 5s ease-in-out infinite;
+    filter: drop-shadow(8px 8px 15px rgba(0, 0, 0, 0.3));
+  }
+
+  @keyframes float3DImage {
+    0%, 100% {
+      transform: perspective(1000px) rotateY(-8deg) rotateX(3deg) translateY(0px);
+    }
+    50% {
+      transform: perspective(1000px) rotateY(8deg) rotateX(-3deg) translateY(-30px);
+    }
+  }
+   .animate-spin-3d {
+    animation: spin3D 15s linear infinite;
+    filter: drop-shadow(8px 8px 15px rgba(0, 0, 0, 0.3));
+  }
+  
+  @keyframes spin3D {
+    0% {
+      transform: perspective(1200px) rotateY(0deg) rotateX(5deg);
+    }
+    100% {
+      transform: perspective(1200px) rotateY(360deg) rotateX(5deg);
+    }
+  }
+
+
+}
