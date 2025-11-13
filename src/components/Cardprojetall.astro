@@ -1,4 +1,6 @@
 ---
+import Fleur from "./Fleur.astro";
+
 interface Props {
   projet: any;
   index?: number;
@@ -21,18 +23,23 @@ const titre = projet?.titre ?? "Projet";
 const description = projet?.description ?? "";
 const annee = new Date(projet?.created || Date.now()).getFullYear();
 
-// Couleurs alternées pour les fleurs/icônes
-const couleurs = ["primary", "accent", "secondary", "warning"];
+// Couleurs alternées pour les bordures ET les fleurs
+const couleurs = ["primary", "accent", "secondary"];
 const couleur = couleurs[index % couleurs.length];
 
-// Icône fleur selon le type de projet
-const icones = ["🌸", "🔧", "🎨", "📸"];
-const icone = icones[index % icones.length];
+// Couleurs CSS pour les fleurs (pétales et centre)
+const fleursConfig = [
+  { petal: "var(--color-primary)", centre: "var(--color-secondary)" }, // Rose + Jaune
+  { petal: "var(--color-accent)", centre: "var(--color-primary)" }, // Bleu + Rose
+  { petal: "var(--color-secondary)", centre: "var(--color-accent)" }, // Jaune + Bleu
+];
+
+const fleurConfig = fleursConfig[index % fleursConfig.length];
 ---
 
 <a
   href={`/projets/${projet?.id}`}
-  class="card-projet group relative bg-base-100 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+  class={`card-projet card-projet-${couleur} group relative bg-base-100 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300`}
 >
   <!-- Badge année -->
   <div class="absolute top-4 right-4 z-20">
@@ -45,28 +52,22 @@ const icone = icones[index % icones.length];
 
   <!-- Image -->
   <figure class="relative h-64 overflow-hidden bg-base-200">
-    <img
-      src={imageUrl}
-      alt={titre}
-      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-    />
-    <div
-      class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-    >
-    </div>
+    <img src={imageUrl} alt={titre} class="w-full h-full object-cover" />
   </figure>
 
   <!-- Contenu -->
   <div class="p-6">
-    <!-- Icône + Titre -->
+    <!-- Fleur + Titre -->
     <div class="flex items-start gap-3 mb-3">
-      <div class={`text-3xl flex-shrink-0 text-${couleur}`}>
-        {icone}
+      <div class="flex-shrink-0">
+        <Fleur
+          petal={fleurConfig.petal}
+          centre-fleur={fleurConfig.centre}
+          size="48"
+        />
       </div>
       <div class="flex-1">
-        <h2
-          class="text-xl md:text-2xl font-bold leading-tight group-hover:text-primary transition-colors"
-        >
+        <h2 class="text-xl md:text-2xl font-bold leading-tight">
           {titre}
         </h2>
       </div>
@@ -79,12 +80,6 @@ const icone = icones[index % icones.length];
       )
     }
   </div>
-
-  <!-- Indicateur hover -->
-  <div
-    class="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-primary via-secondary to-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
-  >
-  </div>
 </a>
 
 <style>
@@ -96,10 +91,22 @@ const icone = icones[index % icones.length];
   }
 
   .card-projet {
-    border: 3px solid transparent;
+    border: 4px solid transparent;
+    transition: border-color 0.3s ease;
   }
 
-  .card-projet:hover {
+  /* Bordure rose au hover */
+  .card-projet-primary:hover {
     border-color: var(--color-primary);
+  }
+
+  /* Bordure bleue au hover */
+  .card-projet-accent:hover {
+    border-color: var(--color-accent);
+  }
+
+  /* Bordure jaune au hover */
+  .card-projet-secondary:hover {
+    border-color: var(--color-secondary);
   }
 </style>

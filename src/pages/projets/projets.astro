@@ -1,7 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Cardprojetall from "../../components/Cardprojetall.astro";
-import Fleur from "../../components/Fleur.astro";
 
 const POCKETBASE_URL =
   import.meta.env.PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090";
@@ -20,23 +19,30 @@ try {
 ---
 
 <Layout title="Mes Projets - Eloïs Henry">
-  <!-- Section Hero avec titre 3D -->
-  <section class="relative py-16 px-6 overflow-hidden">
-    <div class="max-w-screen-xl mx-auto text-center relative z-10">
-      <h1 class="title-3d mb-4">MA GALERIE DE PROJETS</h1>
-    </div>
+  <section class="py-16 px-6">
+    <div class="max-w-screen-xl mx-auto text-center">
+      <!-- Conteneur relatif pour superposer la vague sous le titre -->
+      <div class="relative inline-block w-full">
+        <h1
+          class="title mb-8 text-[4.5rem] md:text-8xl font-black relative z-20 leading-[0.9]"
+        >
+          MA GALERIE DE PROJETS
+        </h1>
 
-    <!-- Bande jaune ondulée décorative -->
-    <div class="absolute bottom-0 left-0 w-full h-16 bg-secondary -mb-1">
-      <svg
-        class="absolute top-0 left-0 w-full h-8"
-        preserveAspectRatio="none"
-        viewBox="0 0 1200 40"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M0,20 Q300,0 600,20 T1200,20 L1200,40 L0,40 Z" fill="#FAFAFA"
-        ></path>
-      </svg>
+        <!-- Vague jaune en arrière-plan, positionnée et responsive -->
+        <svg
+          class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-6 w-[120%] md:w-[110%] h-12 md:h-16 z-10 pointer-events-none"
+          viewBox="0 0 1200 120"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <!-- Forme remplie (fill) plutôt que stroke pour un fond jaune continu -->
+          <path
+            d="M0,40 C150,10 350,70 600,40 C850,10 1050,70 1200,40 L1200,120 L0,120 Z"
+            fill="#FFC700"></path>
+        </svg>
+      </div>
     </div>
   </section>
 
