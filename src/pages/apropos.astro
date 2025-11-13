@@ -1,6 +1,38 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Fleur from "../components/Fleur.astro";
+import LogicielCard from "../components/Cardlogiciel.astro";
+
+const POCKETBASE_URL =
+  import.meta.env.PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090";
+
+let projets = [];
+let logiciels = [];
+
+try {
+  const projetsRes = await fetch(
+    `${POCKETBASE_URL}/api/collections/projets/records`
+  );
+  const projetsData = await projetsRes.json();
+  projets = projetsData.items || [];
+
+  const logicielsRes = await fetch(
+    `${POCKETBASE_URL}/api/collections/logiciels/records`
+  );
+  const logicielsData = await logicielsRes.json();
+  logiciels = logicielsData.items || [];
+} catch (error) {
+  console.error("Erreur lors de la récupération des données:", error);
+}
+
+const convictions = [
+  { titre: "Organisation", couleur: "secondary" },
+  { titre: "Détermination", couleur: "primary" },
+  { titre: "Travail d'équipe", couleur: "accent" },
+  { titre: "Ambition", couleur: "warning" },
+];
+
+const centresInteret = ["la lecture", "le voyage", "la photo et la vidéo"];
 ---
 
 <Layout title="À propos - Eloïs Henry">
@@ -12,7 +44,7 @@ import Fleur from "../components/Fleur.astro";
         <img
           src="/photoapropos.png"
           alt="Photo Eloïs"
-          class="w-64 h-64 md:w-80 md:h-80 rounded-2xl object-cover"
+          class="w-64 h-64 md:w-80 md:h-80 rounded-2xl object-cover shadow-xl"
         />
       </div>
 
@@ -23,50 +55,83 @@ import Fleur from "../components/Fleur.astro";
           Hello,
         </h1>
         <h2 class="text-3xl md:text-4xl font-extrabold text-primary mb-6">
-          Moi c’est Eloïs
+          Moi c'est Eloïs
         </h2>
-        <p class="text-gray-700 mb-6">
+        <p class="text-gray-700 mb-6 leading-relaxed">
           Passionnée par la communication et la création, je suis déterminée à
           devenir celle que je veux être. Je donne mon maximum dans les projets
           que j'entreprends et suis toujours prête à relever de nouveaux défis.
         </p>
         <a
           href="#timeline"
-          class="inline-block bg-accent text-white px-6 py-2 mt-5 rounded-full font-bold shadow-md"
-          >En savoir plus</a
+          class="inline-block bg-accent text-white px-6 py-3 mt-5 rounded-full font-bold shadow-md hover:shadow-lg transition-all"
         >
+          En savoir plus
+        </a>
       </div>
     </div>
   </section>
 
-  <section id="timeline" class="relative bg-secondary py-12">
-    <div class="max-w-screen-xl mx-auto px-6">
-      <div class="mx-auto max-w-4xl">
-        <div class="relative my-8">
-          <div class="w-full border-t-4 border-dashed border-black/70"></div>
-          <div
-            class="grid grid-cols-3 gap-4 text-center mt-6 text-sm text-black"
-          >
-            <div>
-              <div class="font-bold">2007</div>
+  <section id="timeline" class="relative bg-secondary py-16 px-6">
+    <div class="max-w-screen-xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+        Mon parcours
+      </h2>
+
+      <div class="relative">
+        <div
+          class="absolute top-8 left-0 w-full h-1 bg-black/70 hidden md:block"
+        >
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+          <div class="flex flex-col items-center text-center">
+            <div class="w-8 h-8 bg-black rounded-full mb-4 relative z-10"></div>
+            <div class="font-bold text-2xl mb-2">2007</div>
+          </div>
+
+          <!-- 2017-2021 -->
+          <div class="flex flex-col items-center text-center">
+            <div class="w-8 h-8 bg-black rounded-full mb-4 relative z-10"></div>
+            <div class="font-bold text-xl mb-2">2017 - 2021</div>
+            <p class="text-sm">
+              Brevet des collèges<br />
+              Collège Albert Jacquard<br />
+              59330 Lauwin-Planque
+            </p>
+          </div>
+
+          <!-- 2021-2024 -->
+          <div class="flex flex-col items-center text-center">
+            <div class="w-8 h-8 bg-black rounded-full mb-4 relative z-10"></div>
+            <div class="font-bold text-xl mb-2">2021 - 2024</div>
+            <p class="text-sm">
+              Baccalauréat général (mention SB)<br />
+              SES et Mathématiques<br />
+              Spécialité langue de communication et<br />
+              Engagement en BTS<br />
+              93200 Montpellier
+            </p>
+          </div>
+
+          <!-- 2024-2027 -->
+          <div class="flex flex-col items-center text-center">
+            <div
+              class="w-8 h-8 bg-primary rounded-full mb-4 relative z-10 animate-pulse"
+            >
             </div>
-            <div>
-              <div class="font-bold">2017 - 2021</div>
-              <div class="mt-1">
-                Brevet des collèges<br />Collège Albert Jacquard
-              </div>
-            </div>
-            <div>
-              <div class="font-bold">2021 - 2024</div>
-              <div class="mt-1">
-                Baccalauréat général<br />Spécialité SES et Mathématiques
-              </div>
-            </div>
+            <div class="font-bold text-xl mb-2 text-primary">2024 - 2027</div>
+            <p class="text-sm font-semibold">
+              BUT MMI (Métiers du Multimédia et de l'Internet)<br />
+              Parcours Stratégie de communication et<br />
+              Design d'expérience<br />
+              93200 Montpellier
+            </p>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Fleur décorative -->
     <div class="absolute right-5 -top-8">
       <Fleur
         petal="var(--color-primary)"
@@ -75,4 +140,155 @@ import Fleur from "../components/Fleur.astro";
       />
     </div>
   </section>
+
+  <!-- Section Convictions -->
+  <section class="py-16 px-6 bg-base-100">
+    <div class="max-w-screen-xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+        Mes convictions
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        {
+          convictions.map((conviction) => (
+            <div class="flex flex-col items-center">
+              <div
+                class={`w-32 h-32 rounded-full border-8 border-${conviction.couleur} flex items-center justify-center mb-4`}
+              >
+                <span class="text-lg font-bold text-center">
+                  {conviction.titre}
+                </span>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-6">
+    <div class="max-w-screen-xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">
+        Mes centres d'intérêt
+      </h2>
+      <div class="prose prose-lg mx-auto text-center">
+        <p class="text-gray-700 leading-relaxed">
+          En dehors de mes études, j'aime consacrer du temps à ce qui me
+          passionne.
+          {
+            centresInteret.map((interet, index) => (
+              <span>
+                <strong>{interet}</strong>
+                {index < centresInteret.length - 1 ? ", " : ""}
+              </span>
+            ))
+          }
+          {" "}m'apportent l'inspiration et me permettent d'explorer de
+          nouvelles idées, tandis que voyager m'aide à découvrir d'autres
+          cultures. Ces activités et émotions que j'aime partager nourrissent
+          mon envie de créer et me donnent un regard plus sensible sur le monde
+          qui m'entoure.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Compétences (Logiciels) -->
+  <section class="py-16 px-6 bg-base-100">
+    <div class="max-w-screen-xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+        Mes compétences
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          logiciels.map((logiciel, index) => {
+            const couleurs = ["primary", "accent", "warning", "secondary"];
+            const couleur = couleurs[index % couleurs.length];
+
+            return (
+              <LogicielCard
+                nom={logiciel.nom || "Logiciel"}
+                icone={
+                  logiciel.icone
+                    ? `${POCKETBASE_URL}/api/files/${logiciel.collectionId}/${logiciel.id}/${logiciel.icone}`
+                    : undefined
+                }
+                description={logiciel.description || ""}
+                niveau={logiciel.niveau}
+                tags={logiciel.tags || []}
+                couleurBordure={couleur}
+              />
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Conclusion -->
+  <section class="py-16 px-6 bg-base-200">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8">Plus en détails...</h2>
+      <div class="prose prose-lg mx-auto text-left">
+        <p class="mb-6">
+          Le BUT MMI ne se limite pas à l'apprentissage de logiciels. C'est une
+          véritable évolution, à la fois dans mes projets et dans notre manière
+          de penser. Cette formation m'a permis de développer une vision plus
+          globale et structurée, où chaque compétence prend du sens au service
+          de mes réalisations.
+        </p>
+        <p class="mb-6 bg-secondary/20 p-4 rounded-xl">
+          <strong>Au fil des projets, j'ai appris à :</strong>
+        </p>
+        <ul class="list-disc pl-6 mb-6 space-y-2">
+          <li>utiliser des réseaux de manière pertinente</li>
+          <li>réaliser des analyses détaillées grâce aux analytics</li>
+          <li>manier avec aisance des logiciels de création et de reportage</li>
+          <li>
+            analyser la communication de certains médias et certaines sites web
+          </li>
+          <li>concevoir des services personnalisés</li>
+        </ul>
+        <p class="mb-6">
+          Mais au-delà des aspects techniques, MMI m'apprend surtout à devenir
+          plus organisée, rigoureuse et polyvalente. J'ai développé un goût pour
+          l'expérimentation : toujours chercher à améliorer, comprendre ce qui
+          fonctionne, et donner du sens à chacune de mes réalisations.
+        </p>
+        <p class="bg-primary/10 p-4 rounded-xl border-l-4 border-primary">
+          C'est cette combinaison entre <strong
+            >compétences techniques et état d'esprit</strong
+          >
+          que je mets aujourd'hui au service de mes projets.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fleur décorative en bas -->
+  <div class="flex justify-center py-8">
+    <Fleur
+      petal="var(--color-secondary)"
+      centre-fleur="var(--color-primary)"
+      size="48"
+    />
+  </div>
 </Layout>
+
+<style>
+  /* Animation pour les badges et hover effects */
+  .badge {
+    transition: all 0.3s ease;
+  }
+
+  .card {
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+</style>
