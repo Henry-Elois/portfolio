@@ -3,8 +3,7 @@ interface Props {
   nom: string;
   icone?: string;
   description: string;
-  niveau?: string;
-  tags?: string[];
+  nom_logiciel?: string;
   couleurBordure?: string;
 }
 
@@ -12,26 +11,32 @@ const {
   nom,
   icone,
   description,
-  niveau,
-  tags,
+  nom_logiciel,
   couleurBordure = "primary",
 } = Astro.props;
 
 const couleurClasses = {
-  primary: "border-primary",
-  secondary: "border-secondary",
-  accent: "border-accent",
-  warning: "border-warning",
+  primary: "border-primary bg-primary/5",
+  secondary: "border-secondary bg-secondary/5",
+  accent: "border-accent bg-accent/5",
+  warning: "border-warning bg-warning/5",
+};
+
+const badgeClasses = {
+  primary: "badge-primary",
+  secondary: "badge-secondary",
+  accent: "badge-accent",
+  warning: "badge-warning",
 };
 ---
 
 <div
-  class={`card bg-base-100 border-4 ${couleurClasses[couleurBordure]} rounded-3xl p-6 h-full shadow-lg`}
+  class={`card ${couleurClasses[couleurBordure]} border-4 rounded-3xl p-4 h-full shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}
 >
-  <div class="flex items-start gap-4">
+  <div class="flex items-start gap-3">
     {
       icone && (
-        <div class="w-16 h-16 flex-shrink-0">
+        <div class="w-12 h-12 flex-shrink-0 bg-base-100 rounded-xl p-2 shadow-sm">
           <img
             src={icone}
             alt={`Logo ${nom}`}
@@ -40,25 +45,29 @@ const couleurClasses = {
         </div>
       )
     }
-    <div class="flex-1">
-      <h3 class="text-xl font-bold mb-2">{nom}</h3>
-      <p class="text-sm text-gray-700 mb-3">{description}</p>
-      {
-        tags && tags.length > 0 && (
-          <div class="flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <span class={`badge badge-${couleurBordure} text-xs`}>{tag}</span>
-            ))}
-          </div>
-        )
-      }
-      {
-        niveau && (
-          <div class="mt-3">
-            <span class="badge badge-outline">{niveau}</span>
-          </div>
-        )
-      }
+    <div class="flex-1 min-w-0">
+      <div class="flex items-center gap-2 mb-1">
+        <h3 class="text-lg font-bold truncate">{nom}</h3>
+        {
+          nom_logiciel && (
+            <span class={`badge ${badgeClasses[couleurBordure]} badge-sm`}>
+              {nom_logiciel}
+            </span>
+          )
+        }
+      </div>
+      <p class="text-xs text-gray-600 line-clamp-2 leading-relaxed">
+        {description}
+      </p>
     </div>
   </div>
 </div>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

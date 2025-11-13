@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 @import "tailwindcss";
 @plugin "daisyui";
 
@@ -6,26 +7,26 @@
   default: true;
   prefersdark: false;
   color-scheme: "light";
-  --color-primary: #FF076F;
-  --color-primary-content: #FFFFFF;
-  --color-secondary: #FFC700;
+  --color-primary: #ff076f;
+  --color-primary-content: #ffffff;
+  --color-secondary: #ffc700;
   --color-secondary-content: #000000;
-  --color-accent: #1C1CB5;
-  --color-accent-content: #FFFFFF;
+  --color-accent: #1c1cb5;
+  --color-accent-content: #ffffff;
   --color-neutral: #000000;
-  --color-neutral-content: #FFFFFF;
-  --color-base-100: #FAFAFA;
-  --color-base-200: #F0F0F0;
-  --color-base-300: #E5E5E5;
+  --color-neutral-content: #ffffff;
+  --color-base-100: #fafafa;
+  --color-base-200: #f0f0f0;
+  --color-base-300: #e5e5e5;
   --color-base-content: #000000;
-  --color-info: #3ABFF8;
-  --color-info-content: #FFFFFF;
-  --color-success: #36D399;
-  --color-success-content: #FFFFFF;
-  --color-warning: #FBBD23;
+  --color-info: #3abff8;
+  --color-info-content: #ffffff;
+  --color-success: #36d399;
+  --color-success-content: #ffffff;
+  --color-warning: #fbbd23;
   --color-warning-content: #000000;
-  --color-error: #F87272;
-  --color-error-content: #FFFFFF;
+  --color-error: #f87272;
+  --color-error-content: #ffffff;
   --radius-box: 1.5rem;
   --radius-field: 9999px;
   --border: 4px;
@@ -36,14 +37,24 @@
     font-family: Arial, Helvetica, sans-serif;
     scroll-behavior: smooth;
   }
-  
+
   body {
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
     @apply bg-base-100 text-base-content antialiased;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
-    font-family: Impact, 'Haettenschweiler', 'Arial Black', sans-serif;
+
+  h1,
+  h2,
+  h3,
+  h5,
+  h6 {
+    font-family: Impact, "Haettenschweiler", "Arial Black", sans-serif;
     font-weight: 900;
+  }
+
+  h4 {
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    font-weight: 700;
   }
 }
 
@@ -52,18 +63,16 @@
     font-family: Impact, sans-serif;
     font-size: clamp(3rem, 10vw, 7rem);
     font-weight: 900;
-    color: #FF076F;
+    color: #ff076f;
     text-transform: uppercase;
     letter-spacing: -0.02em;
     line-height: 0.9;
-    text-shadow: 
-      4px 4px 0px #8B003C,
-      8px 8px 0px rgba(139, 0, 60, 0.7),
+    text-shadow: 4px 4px 0px #8b003c, 8px 8px 0px rgba(139, 0, 60, 0.7),
       12px 12px 0px rgba(139, 0, 60, 0.5);
   }
-  
+
   .subtitle-script {
-    font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+    font-family: "Brush Script MT", "Lucida Handwriting", cursive;
     font-size: clamp(1.5rem, 4vw, 3rem);
     font-weight: 400;
   }
@@ -72,13 +81,11 @@
     font-family: Impact, sans-serif;
     font-size: clamp(3rem, 10vw, 7rem);
     font-weight: 900;
-    color: #FF076F;
+    color: #ff076f;
     text-transform: uppercase;
     letter-spacing: -0.02em;
     line-height: 0.9;
-    text-shadow: 
-      4px 4px 0px #8B003C,
-      8px 8px 0px rgba(139, 0, 60, 0.7),
+    text-shadow: 4px 4px 0px #8b003c, 8px 8px 0px rgba(139, 0, 60, 0.7),
       12px 12px 0px rgba(139, 0, 60, 0.5);
     transform-style: preserve-3d;
     animation: rotate3d 10s infinite linear;
@@ -100,18 +107,21 @@
   }
 
   @keyframes float3DImage {
-    0%, 100% {
-      transform: perspective(1000px) rotateY(-8deg) rotateX(3deg) translateY(0px);
+    0%,
+    100% {
+      transform: perspective(1000px) rotateY(-8deg) rotateX(3deg)
+        translateY(0px);
     }
     50% {
-      transform: perspective(1000px) rotateY(8deg) rotateX(-3deg) translateY(-30px);
+      transform: perspective(1000px) rotateY(8deg) rotateX(-3deg)
+        translateY(-30px);
     }
   }
-   .animate-spin-3d {
+  .animate-spin-3d {
     animation: spin3D 15s linear infinite;
     filter: drop-shadow(8px 8px 15px rgba(0, 0, 0, 0.3));
   }
-  
+
   @keyframes spin3D {
     0% {
       transform: perspective(1200px) rotateY(0deg) rotateX(5deg);
@@ -120,6 +130,4 @@
       transform: perspective(1200px) rotateY(360deg) rotateX(5deg);
     }
   }
-
-
 }

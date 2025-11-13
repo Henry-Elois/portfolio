@@ -9,6 +9,8 @@ const POCKETBASE_URL =
 let projets = [];
 let logiciels = [];
 
+console.log("🔍 Tentative de connexion à:", POCKETBASE_URL);
+
 try {
   const projetsRes = await fetch(
     `${POCKETBASE_URL}/api/collections/projets/records`
@@ -21,8 +23,11 @@ try {
   );
   const logicielsData = await logicielsRes.json();
   logiciels = logicielsData.items || [];
+
+  console.log("✅ Logiciels récupérés:", logiciels.length);
+  console.log("📦 Premier logiciel:", logiciels[0]);
 } catch (error) {
-  console.error("Erreur lors de la récupération des données:", error);
+  console.error("❌ Erreur lors de la récupération des données:", error);
 }
 
 const convictions = [
@@ -32,10 +37,11 @@ const convictions = [
   { titre: "Ambition", couleur: "warning" },
 ];
 
-const centresInteret = ["la lecture", "le voyage", "la photo et la vidéo"];
+const centresInteret = ["La lecture", "les voyages", "la photo et la vidéo"];
 ---
 
 <Layout title="À propos - Eloïs Henry">
+  <!-- Section Hero -->
   <section class="py-16 px-6">
     <div
       class="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-12"
@@ -44,7 +50,7 @@ const centresInteret = ["la lecture", "le voyage", "la photo et la vidéo"];
         <img
           src="/photoapropos.png"
           alt="Photo Eloïs"
-          class="w-64 h-64 md:w-80 md:h-80 rounded-2xl object-cover shadow-xl"
+          class="w-64 h-64 md:w-80 md:h-80 rounded-4xl object-cover shadow-xl"
         />
       </div>
 
@@ -72,6 +78,7 @@ const centresInteret = ["la lecture", "le voyage", "la photo et la vidéo"];
     </div>
   </section>
 
+  <!-- Section Timeline -->
   <section id="timeline" class="relative bg-secondary py-16 px-6">
     <div class="max-w-screen-xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
@@ -89,7 +96,6 @@ const centresInteret = ["la lecture", "le voyage", "la photo et la vidéo"];
             <div class="font-bold text-2xl mb-2">2007</div>
           </div>
 
-          <!-- 2017-2021 -->
           <div class="flex flex-col items-center text-center">
             <div class="w-8 h-8 bg-black rounded-full mb-4 relative z-10"></div>
             <div class="font-bold text-xl mb-2">2017 - 2021</div>
@@ -100,7 +106,6 @@ const centresInteret = ["la lecture", "le voyage", "la photo et la vidéo"];
             </p>
           </div>
 
-          <!-- 2021-2024 -->
           <div class="flex flex-col items-center text-center">
             <div class="w-8 h-8 bg-black rounded-full mb-4 relative z-10"></div>
             <div class="font-bold text-xl mb-2">2021 - 2024</div>
@@ -113,7 +118,6 @@ const centresInteret = ["la lecture", "le voyage", "la photo et la vidéo"];
             </p>
           </div>
 
-          <!-- 2024-2027 -->
           <div class="flex flex-col items-center text-center">
             <div
               class="w-8 h-8 bg-primary rounded-full mb-4 relative z-10 animate-pulse"
@@ -130,8 +134,6 @@ const centresInteret = ["la lecture", "le voyage", "la photo et la vidéo"];
         </div>
       </div>
     </div>
-
-    <!-- Fleur décorative -->
     <div class="absolute right-5 -top-8">
       <Fleur
         petal="var(--color-primary)"
@@ -142,19 +144,19 @@ const centresInteret = ["la lecture", "le voyage", "la photo et la vidéo"];
   </section>
 
   <!-- Section Convictions -->
-  <section class="py-16 px-6 bg-base-100">
+  <section class="py-16 px-6 pt-20 bg-base-100">
     <div class="max-w-screen-xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+      <h4 class="text-xl md:text-2xl font-bold text-center mb-12">
         Mes convictions
-      </h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      </h4>
+      <div class="pt-8 grid grid-cols-2 md:grid-cols-4 gap-8">
         {
           convictions.map((conviction) => (
             <div class="flex flex-col items-center">
               <div
-                class={`w-32 h-32 rounded-full border-8 border-${conviction.couleur} flex items-center justify-center mb-4`}
+                class={`w-32 h-32 rounded-full border-8 border-${conviction.couleur} flex items-center justify-center mb-4 transition-transform hover:scale-110`}
               >
-                <span class="text-lg font-bold text-center">
+                <span class="text-base font-bold text-center px-2">
                   {conviction.titre}
                 </span>
               </div>
@@ -165,13 +167,14 @@ const centresInteret = ["la lecture", "le voyage", "la photo et la vidéo"];
     </div>
   </section>
 
+  <!-- Section Centres d'intérêt -->
   <section class="py-16 px-6">
     <div class="max-w-screen-xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">
+      <h4 class="text-xl md:text-2xl font-bold text-center mb-8">
         Mes centres d'intérêt
-      </h2>
-      <div class="prose prose-lg mx-auto text-center">
-        <p class="text-gray-700 leading-relaxed">
+      </h4>
+      <div class="max-w-4xl prose prose-lg mx-auto text-center">
+        <p class="text-black leading-relaxed">
           En dehors de mes études, j'aime consacrer du temps à ce qui me
           passionne.
           {
@@ -192,14 +195,24 @@ const centresInteret = ["la lecture", "le voyage", "la photo et la vidéo"];
     </div>
   </section>
 
-  <!-- Section Compétences (Logiciels) -->
-  <section class="py-16 px-6 bg-base-100">
+  <section class="py-12 px-6 bg-base-100">
     <div class="max-w-screen-xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+      <h4 class="text-xl md:text-2xl font-bold text-center mb-8">
         Mes compétences
-      </h2>
+      </h4>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        logiciels.length === 0 && (
+          <div class="text-center text-gray-500 mb-4 p-4 bg-warning/20 rounded-lg">
+            <p>⚠️ Aucun logiciel trouvé.</p>
+            <p class="text-sm mt-2">
+              Vérifiez que PocketBase est démarré sur: {POCKETBASE_URL}
+            </p>
+          </div>
+        )
+      }
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {
           logiciels.map((logiciel, index) => {
             const couleurs = ["primary", "accent", "warning", "secondary"];
@@ -207,15 +220,14 @@ const centresInteret = ["la lecture", "le voyage", "la photo et la vidéo"];
 
             return (
               <LogicielCard
-                nom={logiciel.nom || "Logiciel"}
+                nom={logiciel.nom_logiciel || "Logiciel"}
                 icone={
                   logiciel.icone
                     ? `${POCKETBASE_URL}/api/files/${logiciel.collectionId}/${logiciel.id}/${logiciel.icone}`
                     : undefined
                 }
-                description={logiciel.description || ""}
-                niveau={logiciel.niveau}
-                tags={logiciel.tags || []}
+                description={logiciel.description || "Pas de description"}
+                nom_logiciel={logiciel.nom_logiciel}
                 couleurBordure={couleur}
               />
             );
@@ -225,70 +237,40 @@ const centresInteret = ["la lecture", "le voyage", "la photo et la vidéo"];
     </div>
   </section>
 
-  <!-- Section Conclusion -->
-  <section class="py-16 px-6 bg-base-200">
+  <!-- Section Plus en détails -->
+  <section class="py-16 px-6">
     <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-8">Plus en détails...</h2>
+      <h4 class="text-xl md:text-2xl font-bold mb-8">Plus en détails...</h4>
       <div class="prose prose-lg mx-auto text-left">
         <p class="mb-6">
-          Le BUT MMI ne se limite pas à l'apprentissage de logiciels. C'est une
-          véritable évolution, à la fois dans mes projets et dans notre manière
-          de penser. Cette formation m'a permis de développer une vision plus
-          globale et structurée, où chaque compétence prend du sens au service
-          de mes réalisations.
+          Le BUT MMI ne se limite pas à l'apprentissage de logiciels. C'est une <strong
+          >
+            véritable évolution
+          </strong>, à la fois dans nos projets et dans notre manière de penser.
+          Cette formation m'a permis de développer une vision plus globale et
+          structurée, où chaque compétence prend du sens dans un ensemble
+          cohérent. Au fil des projets, j'ai appris à :
         </p>
-        <p class="mb-6 bg-secondary/20 p-4 rounded-xl">
-          <strong>Au fil des projets, j'ai appris à :</strong>
-        </p>
-        <ul class="list-disc pl-6 mb-6 space-y-2">
-          <li>utiliser des réseaux de manière pertinente</li>
-          <li>réaliser des analyses détaillées grâce aux analytics</li>
-          <li>manier avec aisance des logiciels de création et de reportage</li>
+        <ul class="list-disc list-inside mb-6">
+          <li>utiliser les réseaux de manière pertinente,</li>
+          <li>réaliser des analyses détaillées grâce aux KPI,</li>
           <li>
-            analyser la communication de certains médias et certaines sites web
+            maîtriser les règles du montage, de l'interview et du reportage,
+          </li>
+          <li>
+            analyser la communication de certains médias et certains sites web
           </li>
           <li>concevoir des services personnalisés</li>
         </ul>
         <p class="mb-6">
           Mais au-delà des aspects techniques, MMI m'apprend surtout à devenir
-          plus organisée, rigoureuse et polyvalente. J'ai développé un goût pour
-          l'expérimentation : toujours chercher à améliorer, comprendre ce qui
-          fonctionne, et donner du sens à chacune de mes réalisations.
-        </p>
-        <p class="bg-primary/10 p-4 rounded-xl border-l-4 border-primary">
-          C'est cette combinaison entre <strong
-            >compétences techniques et état d'esprit</strong
-          >
-          que je mets aujourd'hui au service de mes projets.
+          plus organisée, pointilleuse et volontaire. J'ai développé une
+          ambition constante : toujours chercher à m'améliorer, comprendre ce
+          que je fais, et donner du sens à chacune de mes réalisations. C'est
+          cette combinaison entre compétences techniques et état d'esprit que je
+          mets aujourd'hui au service de mes projets.
         </p>
       </div>
     </div>
   </section>
-
-  <!-- Fleur décorative en bas -->
-  <div class="flex justify-center py-8">
-    <Fleur
-      petal="var(--color-secondary)"
-      centre-fleur="var(--color-primary)"
-      size="48"
-    />
-  </div>
 </Layout>
-
-<style>
-  /* Animation pour les badges et hover effects */
-  .badge {
-    transition: all 0.3s ease;
-  }
-
-  .card {
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
-  }
-
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-  }
-</style>
