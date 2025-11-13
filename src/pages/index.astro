@@ -1,6 +1,21 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Fleur from "../components/Fleur.astro";
+import Cardprojet from "../components/Cardprojet.astro";
+
+const POCKETBASE_URL =
+  import.meta.env.PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090";
+
+let projets = [];
+try {
+  const res = await fetch(
+    `${POCKETBASE_URL}/api/collections/projets/records?perPage=9&sort=-created`
+  );
+  const data = await res.json();
+  projets = data.items || [];
+} catch (err) {
+  console.error("Erreur fetch projets:", err);
+}
 ---
 
 <Layout title="Accueil - Eloïs Henry">
@@ -14,7 +29,7 @@ import Fleur from "../components/Fleur.astro";
     />
 
     <div class="text-center mt-20 px-4">
-      <p class="subtitle-script text-4xl mb-8">
+      <p class="subtitle-script text-7xl mb-8">
         Filmer. <span class="text-neutral">Créer.</span>
         <span class="text-primary">Partager.</span>
       </p>
@@ -91,5 +106,33 @@ import Fleur from "../components/Fleur.astro";
       </div>
     </div>
   </section>
-  
+  <section></section>
+  <section class="py-16 px-4 bg-base-100">
+    <div class="max-w-screen-2xl mx-auto">
+      <div class="flex items-center justify-between mb-8">
+        <h3 class="text-3xl font-bold">Mes projets</h3>
+        <a href="/projets" class="text-sm btn btn-ghost">Voir tous</a>
+      </div>
+
+      {
+        projets && projets.length > 0 ? (
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projets.map((p) => (
+              <Cardprojet projet={p} />
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-12">
+            <p class="text-gray-600 mb-6">
+              Aucun projet trouvé — exécute ton PocketBase ou vérifie
+              PUBLIC_POCKETBASE_URL.
+            </p>
+            <a href="/projets" class="btn btn-primary">
+              Voir projets
+            </a>
+          </div>
+        )
+      }
+    </div>
+  </section>
 </Layout>

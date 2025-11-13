@@ -1,0 +1,105 @@
+---
+interface Props {
+  projet: any;
+  index?: number;
+}
+
+const { projet, index = 0 } = Astro.props;
+
+const POCKETBASE_URL =
+  import.meta.env.PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090";
+
+// Récupération de l'image
+const imageFile = projet?.image_card;
+const collectionId = projet?.collectionId ?? "projets";
+const imageUrl = imageFile
+  ? `${POCKETBASE_URL}/api/files/${collectionId}/${projet.id}/${imageFile}`
+  : "/placeholder-project.png";
+
+// Infos du projet
+const titre = projet?.titre ?? "Projet";
+const description = projet?.description ?? "";
+const annee = new Date(projet?.created || Date.now()).getFullYear();
+
+// Couleurs alternées pour les fleurs/icônes
+const couleurs = ["primary", "accent", "secondary", "warning"];
+const couleur = couleurs[index % couleurs.length];
+
+// Icône fleur selon le type de projet
+const icones = ["🌸", "🔧", "🎨", "📸"];
+const icone = icones[index % icones.length];
+---
+
+<a
+  href={`/projets/${projet?.id}`}
+  class="card-projet group relative bg-base-100 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+>
+  <!-- Badge année -->
+  <div class="absolute top-4 right-4 z-20">
+    <div
+      class="bg-base-100 rounded-full px-4 py-2 shadow-md border-2 border-gray-200"
+    >
+      <span class="font-bold text-sm">{annee}</span>
+    </div>
+  </div>
+
+  <!-- Image -->
+  <figure class="relative h-64 overflow-hidden bg-base-200">
+    <img
+      src={imageUrl}
+      alt={titre}
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+    >
+    </div>
+  </figure>
+
+  <!-- Contenu -->
+  <div class="p-6">
+    <!-- Icône + Titre -->
+    <div class="flex items-start gap-3 mb-3">
+      <div class={`text-3xl flex-shrink-0 text-${couleur}`}>
+        {icone}
+      </div>
+      <div class="flex-1">
+        <h2
+          class="text-xl md:text-2xl font-bold leading-tight group-hover:text-primary transition-colors"
+        >
+          {titre}
+        </h2>
+      </div>
+    </div>
+
+    <!-- Description -->
+    {
+      description && (
+        <p class="text-sm text-gray-600 line-clamp-2 mb-4">{description}</p>
+      )
+    }
+  </div>
+
+  <!-- Indicateur hover -->
+  <div
+    class="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-primary via-secondary to-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+  >
+  </div>
+</a>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-projet {
+    border: 3px solid transparent;
+  }
+
+  .card-projet:hover {
+    border-color: var(--color-primary);
+  }
+</style>

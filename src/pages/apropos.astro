@@ -77,8 +77,6 @@ const centresInteret = ["La lecture", "les voyages", "la photo et la vidéo"];
       </div>
     </div>
   </section>
-
-  <!-- Section Timeline -->
   <section id="timeline" class="relative bg-secondary py-16 px-6">
     <div class="max-w-screen-xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
@@ -143,7 +141,6 @@ const centresInteret = ["La lecture", "les voyages", "la photo et la vidéo"];
     </div>
   </section>
 
-  <!-- Section Convictions -->
   <section class="py-16 px-6 pt-20 bg-base-100">
     <div class="max-w-screen-xl mx-auto">
       <h4 class="text-xl md:text-2xl font-bold text-center mb-12">
@@ -195,6 +192,7 @@ const centresInteret = ["La lecture", "les voyages", "la photo et la vidéo"];
     </div>
   </section>
 
+  <!-- Section Compétences - CORRIGÉ -->
   <section class="py-12 px-6 bg-base-100">
     <div class="max-w-screen-xl mx-auto">
       <h4 class="text-xl md:text-2xl font-bold text-center mb-8">
@@ -203,12 +201,9 @@ const centresInteret = ["La lecture", "les voyages", "la photo et la vidéo"];
 
       {
         logiciels.length === 0 && (
-          <div class="text-center text-gray-500 mb-4 p-4 bg-warning/20 rounded-lg">
-            <p>⚠️ Aucun logiciel trouvé.</p>
-            <p class="text-sm mt-2">
-              Vérifiez que PocketBase est démarré sur: {POCKETBASE_URL}
-            </p>
-          </div>
+          <p class="text-center text-gray-500 mb-4">
+            Aucun logiciel trouvé. Vérifiez que PocketBase est démarré.
+          </p>
         )
       }
 

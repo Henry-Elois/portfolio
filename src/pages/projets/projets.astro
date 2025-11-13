@@ -1,0 +1,74 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Cardprojetall from "../../components/Cardprojetall.astro";
+import Fleur from "../../components/Fleur.astro";
+
+const POCKETBASE_URL =
+  import.meta.env.PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090";
+
+let projets = [];
+try {
+  const res = await fetch(
+    `${POCKETBASE_URL}/api/collections/projets/records?perPage=24&sort=-created`
+  );
+  const data = await res.json();
+  projets = data?.items || [];
+  console.log("✅ Projets récupérés:", projets.length);
+} catch (error) {
+  console.error("❌ Erreur fetch projets:", error);
+}
+---
+
+<Layout title="Mes Projets - Eloïs Henry">
+  <!-- Section Hero avec titre 3D -->
+  <section class="relative py-16 px-6 overflow-hidden">
+    <div class="max-w-screen-xl mx-auto text-center relative z-10">
+      <h1 class="title-3d mb-4">MA GALERIE DE PROJETS</h1>
+    </div>
+
+    <!-- Bande jaune ondulée décorative -->
+    <div class="absolute bottom-0 left-0 w-full h-16 bg-secondary -mb-1">
+      <svg
+        class="absolute top-0 left-0 w-full h-8"
+        preserveAspectRatio="none"
+        viewBox="0 0 1200 40"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M0,20 Q300,0 600,20 T1200,20 L1200,40 L0,40 Z" fill="#FAFAFA"
+        ></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Section Grille de projets -->
+  <section class="py-12 px-6 bg-base-100">
+    <div class="max-w-screen-xl mx-auto">
+      {
+        projets && projets.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projets.map((projet, index) => (
+              <Cardprojetall projet={projet} index={index} />
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-12 bg-warning/10 rounded-3xl border-4 border-warning">
+            <p class="text-gray-600 mb-6 text-lg">⚠️ Aucun projet trouvé</p>
+            <p class="text-sm text-gray-500">
+              Vérifie que PocketBase est démarré sur {POCKETBASE_URL}
+            </p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- Bouton vers compétences -->
+  <section class="py-12 px-6 text-center">
+    <a
+      href="/apropos#competences"
+      class="btn btn-accent btn-lg rounded-full px-8 text-white font-bold shadow-lg hover:shadow-xl transition-all"
+    >
+      Voir mes compétences
+    </a>
+  </section>
+</Layout>
