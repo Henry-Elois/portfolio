@@ -1,0 +1,65 @@
+---
+import Layout from "./Layout.astro";
+import Fleur from "../components/Fleur.astro";
+
+interface Props {
+  title: string;
+  categorie?: string;
+}
+
+const { title, categorie = "Création d'une application web" } = Astro.props;
+---
+
+<Layout title={title}>
+  <!-- Header avec bouton retour, fleur et tag -->
+  <section class="py-8 px-6">
+    <div class="max-w-screen-xl mx-auto flex items-center justify-between">
+      <!-- Bouton retour -->
+      <a
+        href="/projets"
+        class="btn btn-circle btn-primary shadow-lg hover:shadow-xl"
+        aria-label="Retour aux projets"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </a>
+
+      <!-- Fleur centrale -->
+      <div class="absolute left-1/2 -translate-x-1/2">
+        <Fleur
+          petal="var(--color-secondary)"
+          centre-fleur="var(--color-primary)"
+          size="56"
+        />
+      </div>
+
+      <!-- Tag catégorie -->
+      <div class="badge badge-outline badge-lg px-6 py-4 font-bold">
+        {categorie}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenu de la page -->
+  <slot />
+
+  <!-- Fleur décorative en bas -->
+  <div class="flex justify-end px-12 py-8">
+    <Fleur
+      petal="var(--color-primary)"
+      centre-fleur="var(--color-secondary)"
+      size="64"
+    />
+  </div>
+</Layout>

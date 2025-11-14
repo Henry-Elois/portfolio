@@ -1,5 +1,5 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import Layoutprojet from "../../layouts/Layoutprojet.astro";
 import Fleur from "../../components/Fleur.astro";
 import pb from "../../../utils/pb";
 
@@ -19,74 +19,45 @@ export async function getStaticPaths() {
   }
 }
 
+// récupère le projet injecté par getStaticPaths / SSR
 const { projet } = Astro.props;
 
-function getImageUrl(file: string) {
-    return `/api/files/${projet.collectionId}/${projet.id}/${encodeURIComponent(file)}`;
+// base URL PocketBase (important pour construire l'URL complète des fichiers)
+const POCKETBASE_URL =
+  import.meta.env.PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090";
+
+// helper pour construire l'URL d'une image (encode correctement le nom de fichier)
+function getImageUrl(file) {
+  if (!file || !projet) return null;
+  const coll = projet.collectionId ?? "projets";
+  return `${POCKETBASE_URL}/api/files/${coll}/${projet.id}/${encodeURIComponent(file)}`;
 }
 
-// Récupérer les logiciels associés
+// Récupérer les logiciels associés (expand si présent)
 let logiciels = [];
-if (projet.expand?.logiciels) {
+if (projet?.expand?.logiciels) {
   logiciels = Array.isArray(projet.expand.logiciels)
     ? projet.expand.logiciels
     : [projet.expand.logiciels];
 }
 ---
 
-<Layout title={`${projet.titre} - Eloïs Henry`}>
-  <!-- Bouton retour + Fleur + Tag -->
-  <section class="py-8 px-6">
-    <div class="max-w-screen-xl mx-auto flex items-center justify-between">
-      <!-- Bouton retour -->
-      <a
-        href="/projets"
-        class="btn btn-circle btn-primary shadow-lg hover:shadow-xl"
-        aria-label="Retour aux projets"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M15 19l-7-7 7-7"></path>
-        </svg>
-      </a>
-
-      <!-- Fleur centrale -->
-      <div class="absolute left-1/2 -translate-x-1/2">
-        <Fleur
-          petal="var(--color-secondary)"
-          centre-fleur="var(--color-primary)"
-          size="56"
-        />
-      </div>
-
-      <!-- Tag catégorie -->
-      <div class="badge badge-outline badge-lg px-6 py-4 font-bold">
-        Création d'une application web
-      </div>
-    </div>
-  </section>
-
-  <!-- Section Hero avec titre et mockup -->
+<Layoutprojet title={`${projet.titre} - Eloïs Henry`}>
+  
   <section class="py-12 px-6">
     <div class="max-w-screen-xl mx-auto">
+      <h1 class="text-xl md:text-5xl font-bold mb-20">
+        {projet.titre}
+      </h1>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <!-- Colonne gauche : Image hero -->
         <div class="flex justify-center">
           {
-            projet.image_hero ? (
+            projet?.image_hero ? (
               <img
                 src={getImageUrl(projet.image_hero)}
                 alt={projet.titre}
-                class="max-w-md w-full rounded-3xl shadow-2xl"
+                class="max-w-md w-full rounded-3xl shadow-2xl object-cover"
+                loading="lazy"
               />
             ) : (
               <div class="w-full max-w-md h-96 bg-base-200 rounded-3xl flex items-center justify-center">
@@ -146,10 +117,6 @@ if (projet.expand?.logiciels) {
   <!-- Section Description principale -->
   <section id="details" class="py-16 px-6 bg-base-100">
     <div class="max-w-4xl mx-auto">
-      <h1 class="text-4xl md:text-5xl font-bold mb-8 leading-tight">
-        {projet.titre}
-      </h1>
-
       <div class="prose prose-lg max-w-none">
         <p class="text-lg leading-relaxed mb-6">
           {projet.description}
@@ -204,39 +171,6 @@ if (projet.expand?.logiciels) {
     </div>
   </section>
 
-  <!-- Section Arguments (3 cartes) -->
-  <section class="py-16 px-6 bg-base-100">
-    <div class="max-w-screen-xl mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Carte 1 -->
-        <div
-          class="card bg-base-100 border-4 border-accent rounded-3xl p-6 text-center"
-        >
-          <h3 class="text-xl font-bold text-accent mb-2">
-            Avantage concurrentiel
-          </h3>
-        </div>
-
-        <!-- Carte 2 -->
-        <div
-          class="card bg-base-100 border-4 border-accent rounded-3xl p-6 text-center"
-        >
-          <h3 class="text-xl font-bold text-accent mb-2">Ciblage large</h3>
-        </div>
-
-        <!-- Carte 3 -->
-        <div
-          class="card bg-base-100 border-4 border-accent rounded-3xl p-6 text-center"
-        >
-          <h3 class="text-xl font-bold text-accent mb-2">
-            Une plateforme bienveillante
-          </h3>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section Texte détaillé -->
   <section class="py-16 px-6">
     <div class="max-w-4xl mx-auto">
       <div class="prose prose-lg max-w-none">
@@ -276,7 +210,6 @@ if (projet.expand?.logiciels) {
     </div>
   </section>
 
-  <!-- Bouton final -->
   <section class="py-12 px-6 text-center">
     <a
       href="#"
@@ -285,13 +218,4 @@ if (projet.expand?.logiciels) {
       Accéder au site
     </a>
   </section>
-
-  <!-- Fleur décorative en bas -->
-  <div class="flex justify-end px-12 py-8">
-    <Fleur
-      petal="var(--color-primary)"
-      centre-fleur="var(--color-secondary)"
-      size="64"
-    />
-  </div>
 </Layout>
