@@ -2,19 +2,31 @@
 import Layout from "../layouts/Layout.astro";
 import Fleur from "../components/Fleur.astro";
 import Cardprojet from "../components/Cardprojet.astro";
+import LogicielCard from "../components/Cardlogiciel.astro";
 
 const POCKETBASE_URL =
   import.meta.env.PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090";
 
 let projets = [];
+let logiciels = [];
+
 try {
-  const res = await fetch(
-    `${POCKETBASE_URL}/api/collections/projets/records?perPage=9&sort=-created`
-  );
-  const data = await res.json();
-  projets = data.items || [];
+  const [projetsRes, logicielsRes] = await Promise.all([
+    fetch(
+      `${POCKETBASE_URL}/api/collections/projets/records?perPage=3&sort=-created`
+    ),
+    fetch(
+      `${POCKETBASE_URL}/api/collections/logiciels/records?perPage=3&sort=-created`
+    ),
+  ]);
+
+  const projetsData = await projetsRes.json();
+  const logicielsData = await logicielsRes.json();
+
+  projets = projetsData.items || [];
+  logiciels = logicielsData.items || [];
 } catch (err) {
-  console.error("Erreur fetch projets:", err);
+  console.error("Erreur fetch:", err);
 }
 ---
 
@@ -33,106 +45,250 @@ try {
         Filmer. <span class="text-neutral">Créer.</span>
         <span class="text-primary">Partager.</span>
       </p>
+
       <div class="flex gap-4 justify-center flex-wrap">
-        <button class="btn btn-primary">
-          <img src="/Group.png" alt="Contact" class="w-6 h-6 inline" /></button
-        >
+        <a href="#qui-suis-je" class="btn btn-primary">
+          <img src="/Group.png" alt="Scroll" class="w-6 h-6 inline" />
+        </a>
       </div>
     </div>
   </section>
-  <section id="qui-suis-je" class="py-16 px-4 bg-base-100">
-    <div class="max-w-screen-2xl mx-auto">
-      <div class="text-center mb-12">
-        <div class="flex items-center justify-center gap-4 mb-4">
-          <div class="h-1 bg-accent flex-grow max-w-xs"></div>
-          <h2 class="text-3xl md:text-5xl font-bold">
-            Communicante et UX designer
-          </h2>
-          <div class="h-1 bg-accent flex-grow max-w-xs"></div>
-        </div>
-      </div>
-      <div
-        class="flex flex-col md:flex-row items-center justify-center gap-8 mb-12"
-      >
-        <div class="text-center">
-          <p class="text-2xl md:text-3xl font-bold">18ans</p>
-        </div>
 
-        <div class="flex flex-col items-center">
-          <div class="w-1 h-16 bg-accent mb-4"></div>
-          <Fleur />
-          <div class="w-1 h-16 bg-accent mt-4"></div>
-        </div>
+  <!-- QUI SUIS-JE -->
+  <section id="qui-suis-je" class="py-20 px-6 bg-base-100">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-5xl md:text-6xl font-bold mb-4">
+          Communicante & <span class="text-primary">UX Designer</span>
+        </h2>
 
-        <div class="text-center">
-          <p class="text-2xl md:text-3xl font-bold">
-            Etudiante en 2e année de BUT MMI
-          </p>
+        <div
+          class="flex items-center justify-center gap-6 mt-8 text-lg font-semibold"
+        >
+          <span>18 ans</span>
+          <div class="w-px h-12 bg-accent"></div>
+          <Fleur size="40" />
+          <div class="w-px h-12 bg-accent"></div>
+          <span>Étudiante en 2ᵉ année BUT MMI</span>
         </div>
       </div>
 
-      <div class="h-1 bg-accent mb-12"></div>
+      <div class="bg-secondary rounded-3xl p-8 md:p-12 shadow-xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div class="flex justify-center">
+            <img
+              src="/photoaccueil.png"
+              alt="Eloïs Henry"
+              class="w-72 h-auto rounded-3xl shadow-lg hover:scale-105 transition-transform duration-300"
+            />
+          </div>
 
-      <div class="pt-10 mb-12">
-        <div class="mx-auto max-w-5xl">
-          <div
-            class="bg-[#f0c93b] rounded-br-4xl rounded-tl-4xl p-6 md:p-12 flex flex-col md:flex-row items-center gap-8"
-          >
-            <div class="w-full md:w-1/2 flex justify-center md:justify-start">
-              <img
-                src="/photoaccueil.png"
-                alt="Eloïs Henry avec appareil photo"
-                class="w-64 md:w-72 h-auto hover:grayscale-0"
-              />
-            </div>
-            <div class="w-full md:w-1/2">
-              <p
-                class="text-base md:text-lg leading-relaxed mb-6 text-gray-900"
-              >
-                Hello, moi c'est Eloïs. Actuellement étudiante en 2e année de
-                BUT MMI (métiers du multimédia et de l'internet), je suis
-                déterminée à mettre mes compétences au service de projets
-                concrets.
-              </p>
-              <a
-                href="#contact"
-                class="inline-block bg-[#2b2bd6] text-white px-6 py-2 rounded-full font-bold shadow-md"
-              >
-                En savoir plus
-              </a>
-            </div>
+          <div>
+            <h3 class="text-3xl font-bold mb-6">
+              Hello, moi c'est <span class="text-primary">Eloïs</span>
+            </h3>
+
+            <p class="text-lg leading-relaxed mb-8 text-gray-900">
+              Actuellement étudiante en 2ᵉ année de BUT MMI (Métiers du
+              Multimédia et de l'Internet), je suis passionnée par la création
+              de contenu, le design d'expérience et la communication visuelle.
+              Je mets mes compétences au service de projets concrets et
+              créatifs.
+            </p>
+
+            <a
+              href="/apropos"
+              class="inline-block bg-accent text-white px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all"
+            >
+              En savoir plus →
+            </a>
           </div>
         </div>
       </div>
     </div>
   </section>
-  <section></section>
-  <section class="py-16 px-4 bg-base-100">
-    <div class="max-w-screen-2xl mx-auto">
-      <div class="flex items-center justify-between mb-8">
-        <h2 class="text-3xl ">Mes projets</h2>
-        <a href="/projets/projets" class="text-sm btn btn-ghost">Voir tous</a>
+
+  <!-- COMPÉTENCES -->
+  <section class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">
+          Mes <span class="text-primary">Compétences</span>
+        </h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Une sélection des outils que je maîtrise pour donner vie à vos projets
+        </p>
+      </div>
+
+      {
+        logiciels.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            {logiciels.map((logiciel, index) => {
+              const couleurs = ["primary", "accent", "secondary"];
+              const couleur = couleurs[index % couleurs.length];
+
+              return (
+                <LogicielCard
+                  nom={logiciel.nom_logiciel || "Logiciel"}
+                  icone={
+                    logiciel.icone
+                      ? `${POCKETBASE_URL}/api/files/${logiciel.collectionId}/${logiciel.id}/${logiciel.icone}`
+                      : undefined
+                  }
+                  description={logiciel.description || ""}
+                  nom_logiciel={logiciel.nom_logiciel}
+                  couleurBordure={couleur}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="bg-base-100 border-4 border-primary rounded-3xl p-6">
+              <h3 class="text-xl font-bold mb-2">Figma</h3>
+              <p class="text-sm text-gray-600">Design UI/UX et prototypage</p>
+            </div>
+
+            <div class="bg-base-100 border-4 border-accent rounded-3xl p-6">
+              <h3 class="text-xl font-bold mb-2">Illustrator</h3>
+              <p class="text-sm text-gray-600">
+                Création graphique vectorielle
+              </p>
+            </div>
+
+            <div class="bg-base-100 border-4 border-secondary rounded-3xl p-6">
+              <h3 class="text-xl font-bold mb-2">Premiere Pro</h3>
+              <p class="text-sm text-gray-600">Montage vidéo professionnel</p>
+            </div>
+          </div>
+        )
+      }
+
+      <div class="text-center">
+        <a
+          href="/apropos"
+          class="inline-block bg-black text-white px-10 py-4 font-bold uppercase tracking-wider hover:bg-primary hover:shadow-[4px_4px_0px_0px_rgba(255,7,111,1)] transition-all duration-300 rounded-4xl mt-8"
+        >
+          Voir toutes mes compétences
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 px-6 bg-base-100">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row items-end justify-between mb-12">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-2">
+            Mes <span class="text-primary">Projets</span>
+          </h2>
+          <p class="text-lg text-gray-600">
+            Une sélection de mes réalisations récentes
+          </p>
+        </div>
+
+        <a
+          href="/projets/projets"
+          class="btn btn-outline btn-primary mt-4 md:mt-0"
+        >
+          Voir tous les projets →
+        </a>
       </div>
 
       {
         projets && projets.length > 0 ? (
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             {projets.map((p) => (
               <Cardprojet projet={p} />
             ))}
           </div>
         ) : (
-          <div class="text-center py-12">
-            <p class="text-gray-600 mb-6">
-              Aucun projet trouvé — exécute ton PocketBase ou vérifie
-              PUBLIC_POCKETBASE_URL.
+          <div class="text-center py-16 bg-base-200 rounded-3xl">
+            <p class="text-gray-600 mb-6 text-lg">Aucun projet trouvé</p>
+            <p class="text-sm text-gray-500 mb-6">
+              Vérifiez que PocketBase est démarré
             </p>
             <a href="/projets" class="btn btn-primary">
-              Voir projets
+              Explorer les projets
             </a>
           </div>
         )
       }
+    </div>
+  </section>
+
+  <section class="py-20 px-6 bg-accent">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h4 class="text-3xl md:text-4xl mb-6 text-base-100">
+            Un projet en tête ?
+          </h4>
+          <p class="text-lg mb-8 text-base-100">
+            N'hésitez pas à me contacter pour en discuter !
+          </p>
+
+          <div class="flex flex-wrap gap-4">
+            <a
+              href="/contact"
+              class="bg-primary text-white px-8 py-4 rounded-full font-bold shadow-md hover:shadow-lg transition-all"
+            >
+              Me contacter
+            </a>
+
+            <a
+              href="/cv_elois-henry.pdf"
+              download
+              class="bg-base-100 text-black px-8 py-4 rounded-full font-bold shadow-md hover:shadow-lg transition-all"
+            >
+              Télécharger mon CV
+            </a>
+          </div>
+        </div>
+
+        <div class="border-l-4 border-secondary pl-8">
+          <h4 class="text-2xl md:text-3xl text-base-100 mb-4">Me suivre</h4>
+          <p class="text-lg mb-8 text-base-100">
+            Retrouvez-moi sur les réseaux
+          </p>
+
+          <div class="flex gap-6">
+            <a
+              href="https://behance.net/eloishenry"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-16 h-16 bg-primary border-2 rounded-full flex items-center justify-center hover:border-accent hover:scale-110 transition-all shadow-md"
+              aria-label="Behance"
+            >
+              <img src="/mage_behance.svg" alt="Behance" class="w-8 h-8" />
+            </a>
+
+            <a
+              href="https://linkedin.com/in/elois-henry"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-16 h-16 bg-primary border-2 rounded-full flex items-center justify-center hover:border-accent hover:scale-110 transition-all shadow-md"
+              aria-label="LinkedIn"
+            >
+              <img src="/mdi_linkedin.svg" alt="LinkedIn" class="w-8 h-8" />
+            </a>
+
+            <a
+              href="https://instagram.com/elois.henry"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-16 h-16 bg-primary border-2 rounded-full flex items-center justify-center hover:border-accent hover:scale-110 transition-all shadow-md"
+              aria-label="Instagram"
+            >
+              <img
+                src="/ri_instagram-fill.svg"
+                alt="Instagram"
+                class="w-8 h-8"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </Layout>

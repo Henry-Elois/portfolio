@@ -1,0 +1,376 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Contact - Eloïs Henry">
+  <section class="py-16 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-10">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6">
+          Contactez
+          <span class="ml-3 text-primary">MOI</span>
+        </h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed mb-8">
+          J'adore échanger sur de nouveaux projets ! Je réponds généralement
+          sous 1 à 2 jours. Vous pouvez m'envoyer un email ou remplir le
+          formulaire ci-dessous. Retrouvez moi également sur mes réseaux sociaux
+          ou téléchargez mon CV
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4 mt-8 ">
+          <a
+            href="mailto:elois.hry@gmail.com"
+            class="bg-primary text-white px-8 py-4 font-bold uppercase tracking-wider text-sm hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 inline-flex items-center gap-2"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              ></path>
+            </svg>
+            Email Direct
+          </a>
+
+          <a
+            href="/cv_elois-henry.pdf"
+            download
+            class="bg-black text-white px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-primary hover:shadow-[4px_4px_0px_0px_rgba(255,7,111,1)] transition-all duration-300 inline-flex items-center gap-2"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+            </svg>
+            Télécharger mon CV
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="space-y-6">
+          <div
+            class="bg-white border-4 border-black p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-2xl"
+          >
+            <h2 class="text-xl font-bold mb-4 uppercase tracking-wide">
+              Coordonnées
+            </h2>
+
+            <div class="space-y-4 text-sm">
+              <div class="flex items-start gap-3">
+                <div>
+                  <p class="font-bold mb-1">Email</p>
+                  <a
+                    href="mailto:elois.hry@gmail.com"
+                    class="hover:text-primary transition-colors break-all"
+                  >
+                    elois.hry@gmail.com
+                  </a>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div>
+                  <p class="font-bold mb-1">Téléphone</p>
+                  <a
+                    href="tel:0681194609"
+                    class="hover:text-primary transition-colors"
+                  >
+                    06 81 19 46 09
+                  </a>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div>
+                  <p class="font-bold mb-1">Localisation</p>
+                  <p class="text-gray-600">Belfort / Montbéliard</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-white border-4 border-black p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-2xl"
+          >
+            <h2 class="text-xl font-bold mb-4 uppercase tracking-wide">
+              Réseaux
+            </h2>
+
+            <div class="space-y-3">
+              <a
+                href="https://behance.net/eloishenry"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block text-sm font-bold uppercase tracking-wide hover:text-primary transition-colors"
+              >
+                → Behance
+              </a>
+              <a
+                href="https://linkedin.com/in/elois-henry"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block text-sm font-bold uppercase tracking-wide hover:text-primary transition-colors"
+              >
+                → LinkedIn
+              </a>
+              <a
+                href="https://instagram.com/elois.henry"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block text-sm font-bold uppercase tracking-wide hover:text-primary transition-colors"
+              >
+                → Instagram
+              </a>
+            </div>
+          </div>
+
+          <div class="bg-primary/10 border-4 border-primary p-6">
+            <p class="text-sm font-bold">
+              Disponible pour un stage ou une alternance !
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2">
+          <form
+            id="contactForm"
+            class="bg-white border-4 border-black rounded-2xl p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+          >
+            <h2 class="text-2xl font-bold mb-6 uppercase tracking-wide">
+              Envoyer un message
+            </h2>
+
+            <!-- Grid 2 colonnes -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <!-- Prénom -->
+              <div>
+                <label
+                  for="firstName"
+                  class="block text-sm font-bold mb-2 uppercase tracking-wide"
+                >
+                  Prénom*
+                </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  required
+                  placeholder="Jean"
+                  class="w-full px-4 py-3 border-2 border-black focus:outline-none focus:border-primary bg-white transition-colors"
+                />
+              </div>
+
+              <div>
+                <label
+                  for="lastName"
+                  class="block text-sm font-bold mb-2 uppercase tracking-wide"
+                >
+                  Nom*
+                </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  required
+                  placeholder="Dupont"
+                  class="w-full px-4 py-3 border-2 border-black focus:outline-none focus:border-primary bg-white transition-colors"
+                />
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label
+                for="email"
+                class="block text-sm font-bold mb-2 uppercase tracking-wide"
+              >
+                Email*
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="jean.dupont@exemple.fr"
+                class="w-full px-4 py-3 border-2 border-black focus:outline-none focus:border-primary bg-white transition-colors"
+              />
+            </div>
+            <div class="mb-8">
+              <label
+                for="message"
+                class="block text-sm font-bold mb-2 uppercase tracking-wide"
+              >
+                Message*
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows="6"
+                required
+                placeholder="Bonjour Eloïs, je souhaiterais discuter d'un projet..."
+                class="w-full px-4 py-3 border-2 border-black focus:outline-none focus:border-primary bg-white resize-none transition-colors"
+              ></textarea>
+              <p class="text-xs text-gray-500 mt-2">* Champs obligatoires</p>
+            </div>
+            <div>
+              <button
+                type="submit"
+                class="w-full md:w-auto bg-black text-white px-12 py-4 font-bold uppercase tracking-wider hover:bg-primary hover:shadow-[4px_4px_0px_0px_rgba(255,7,111,1)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span
+                  id="btnText"
+                  class="flex items-center justify-center gap-2"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                  </svg>
+                  Envoyer
+                </span>
+                <span id="btnLoader" class="hidden">Envoi en cours...</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div
+    id="successMessage"
+    class="hidden fixed top-24 right-6 z-50 bg-black text-white px-6 py-4 border-4 border-primary shadow-xl max-w-sm rounded-2xl"
+  >
+    <div class="flex items-start gap-3">
+      <span class="text-2xl">✓</span>
+      <div>
+        <p class="font-bold mb-1">Message envoyé !</p>
+        <p class="text-sm opacity-90">Votre client email va s'ouvrir.</p>
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="errorMessage"
+    class="hidden fixed top-24 right-6 z-50 bg-primary text-white px-6 py-4 border-4 border-black shadow-xl max-w-sm rounded-2xl"
+  >
+    <div class="flex items-start gap-3">
+      <span class="text-2xl">✕</span>
+      <div>
+        <p class="font-bold mb-1">Erreur d'envoi</p>
+        <p class="text-sm opacity-90">Veuillez réessayer.</p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById("contactForm") as HTMLFormElement;
+  const btnText = document.getElementById("btnText") as HTMLElement;
+  const btnLoader = document.getElementById("btnLoader") as HTMLElement;
+  const successMessage = document.getElementById(
+    "successMessage"
+  ) as HTMLElement;
+  const errorMessage = document.getElementById("errorMessage") as HTMLElement;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const submitBtn = form.querySelector(
+      'button[type="submit"]'
+    ) as HTMLButtonElement;
+    submitBtn.disabled = true;
+    btnText.classList.add("hidden");
+    btnLoader.classList.remove("hidden");
+
+    try {
+      const formData = new FormData(form);
+      const data = {
+        firstName: formData.get("firstName"),
+        lastName: formData.get("lastName"),
+        email: formData.get("email"),
+        message: formData.get("message"),
+      };
+
+      const subject = encodeURIComponent(
+        `Contact de ${data.firstName} ${data.lastName}`
+      );
+      const body = encodeURIComponent(
+        `Nom: ${data.firstName} ${data.lastName}\n` +
+          `Email: ${data.email}\n\n` +
+          `Message:\n${data.message}`
+      );
+
+      window.location.href = `mailto:elois.hry@gmail.com?subject=${subject}&body=${body}`;
+
+      successMessage.classList.remove("hidden");
+      setTimeout(() => {
+        successMessage.classList.add("hidden");
+      }, 5000);
+
+      form.reset();
+    } catch (error) {
+      console.error("Erreur:", error);
+      errorMessage.classList.remove("hidden");
+      setTimeout(() => {
+        errorMessage.classList.add("hidden");
+      }, 5000);
+    } finally {
+      submitBtn.disabled = false;
+      btnText.classList.remove("hidden");
+      btnLoader.classList.add("hidden");
+    }
+  });
+</script>
+
+<style>
+  input:focus,
+  textarea:focus {
+    border-color: var(--color-primary);
+  }
+
+  input,
+  textarea {
+    transition: border-color 0.2s ease;
+  }
+
+  /* Animation smooth pour les messages */
+  #successMessage,
+  #errorMessage {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+</style>

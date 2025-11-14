@@ -59,7 +59,7 @@ const currentPath = Astro.url.pathname;
         ],
       })}
     />
-  </head>
+	</head>
 
   <body class="bg-base-100 text-neutral leading-relaxed">
     <header
@@ -73,7 +73,9 @@ const currentPath = Astro.url.pathname;
             >Qui suis-je ?</a
           >
           <div class="relative">
-            <a href="/projets" class="font-bold text-lg flex items-center gap-2"
+            <a
+              href="/projets/projets"
+              class="font-bold text-lg flex items-center gap-2"
               >Mes projets
             </a>
           </div>
@@ -91,7 +93,7 @@ const currentPath = Astro.url.pathname;
 
         <div class="flex items-center gap-4 pr-2">
           <a
-            href="/#contact"
+            href="/contact"
             class="bg-base-100 text-primary px-6 py-2 rounded-full font-bold shadow"
             >Me contacter</a
           >
@@ -110,7 +112,6 @@ const currentPath = Astro.url.pathname;
         <div
           class="relative bg-white border-8 border-primary rounded-[48px] overflow-hidden"
         >
-       
           <div class="absolute right-6 top-6 z-10">
             <Fleur
               petal="var(--color-primary)"
@@ -135,13 +136,15 @@ const currentPath = Astro.url.pathname;
                     <a
                       href="/projets"
                       class="text-neutral hover:text-secondary transition-colors"
-                      >Tous les projets</a>
+                      >Tous les projets</a
+                    >
                   </li>
                   <li>
                     <a
                       href="#"
                       class="text-neutral hover:text-secondary transition-colors"
-                      >Photothèque</a>
+                      >Photothèque</a
+                    >
                   </li>
                 </ul>
               </div>
@@ -153,19 +156,22 @@ const currentPath = Astro.url.pathname;
                     <a
                       href="/apropos"
                       class="text-neutral hover:text-secondary transition-colors"
-                      >Qui suis-je ?</a>
+                      >Qui suis-je ?</a
+                    >
                   </li>
                   <li>
                     <a
                       href="#"
                       class="text-neutral hover:text-secondary transition-colors"
-                      >Mon parcours</a>
+                      >Mon parcours</a
+                    >
                   </li>
                   <li>
                     <a
                       href="#"
                       class="text-neutral hover:text-secondary transition-colors"
-                      >Mes compétences</a>
+                      >Mes compétences</a
+                    >
                   </li>
                 </ul>
               </div>
@@ -179,7 +185,8 @@ const currentPath = Astro.url.pathname;
                     <a
                       href="mailto:elois.hry@gmail.com"
                       class="text-neutral hover:text-secondary transition-colors"
-                      >elois.hry@gmail.com</a>
+                      >elois.hry@gmail.com</a
+                    >
                   </li>
                 </ul>
               </div>
@@ -191,13 +198,15 @@ const currentPath = Astro.url.pathname;
                     <a
                       href="/"
                       class="text-neutral hover:text-secondary transition-colors"
-                      >Accueil</a>
+                      >Accueil</a
+                    >
                   </li>
                   <li>
                     <a
                       href="/projets"
                       class="text-neutral hover:text-secondary transition-colors"
-                      >Mes projets</a>
+                      >Mes projets</a
+                    >
                   </li>
                 </ul>
               </div>
@@ -250,10 +259,11 @@ const currentPath = Astro.url.pathname;
 
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
-          const href = this.getAttribute("href");
-          if (href !== "#" && href !== "") {
+          const element = e.currentTarget as HTMLAnchorElement;
+          const href = element.getAttribute("href");
+          if (href && href !== "#" && href !== "") {
             e.preventDefault();
-            const target = document.querySelector(href);
+            const target = document.querySelector(href) as HTMLElement;
             if (target) {
               const headerOffset = 80; // Hauteur du header fixe
               const elementPosition = target.getBoundingClientRect().top;
