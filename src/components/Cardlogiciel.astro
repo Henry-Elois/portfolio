@@ -22,12 +22,6 @@ const couleurClasses = {
   warning: "border-warning bg-warning/5",
 };
 
-const badgeClasses = {
-  primary: "badge-primary",
-  secondary: "badge-secondary",
-  accent: "badge-accent",
-  warning: "badge-warning",
-};
 ---
 
 <div
@@ -47,14 +41,8 @@ const badgeClasses = {
     }
     <div class="flex-1 min-w-0">
       <div class="flex items-center gap-2 mb-1">
-        <h3 class="text-lg font-bold truncate">{nom}</h3>
-        {
-          nom_logiciel && (
-            <span class={`badge ${badgeClasses[couleurBordure]} badge-sm`}>
-              {nom_logiciel}
-            </span>
-          )
-        }
+        <h4 class="text-lg font-bold truncate">{nom}</h4>
+
       </div>
       <p class="text-xs text-gray-600 line-clamp-2 leading-relaxed">
         {description}

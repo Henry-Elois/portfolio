@@ -1,0 +1,277 @@
+---
+import Layout from "../layouts/Layout.astro";
+import pb, { POCKETBASE_URL } from "../../utils/pb";
+
+interface Photo {
+  id: string;
+  collectionId: string;
+  titre: string;
+  legende?: string;
+  categorie?: string;
+  photo: string;
+}
+
+let photos: Photo[] = [];
+
+try {
+  const data = await pb.collection('photos').getList(1, 50, {
+    sort: '-created',
+  });
+  photos = data.items.map((item: any) => ({
+    id: item.id,
+    collectionId: item.collectionId,
+    titre: item.titre || 'Sans titre',
+    legende: item.legende,
+    categorie: item.categorie,
+    photo: item.photo
+  }));
+  console.log("Photos récupérées:", photos.length);
+  console.log("Première photo:", photos[0]);
+} catch (error) {
+  console.error("Erreur photos:", error);
+}
+function getImageUrl(photo: Photo) {
+  return `${POCKETBASE_URL}/api/files/${photo.collectionId}/${photo.id}/${photo.photo}`;
+}
+
+const photosData = photos.map(p => ({
+  titre: p.titre,
+  legende: p.legende || '',
+  image: getImageUrl(p)
+}));
+---
+
+<Layout title="Photothèque - Eloïs Henry">
+  <section class="py-20 px-6">
+    <div class="max-w-7xl mx-auto text-center">
+      <h1 class="text-6xl md:text-8xl font-bold mb-6">
+        Photo<span class="">thèque</span>
+      </h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Une collection de moments capturés à travers mon objectif
+      </p>
+    </div>
+  </section>
+
+  <section class="py-12 px-6">
+    <div class="max-w-7xl mx-auto">
+      {photos.length > 0 ? (
+        <div class="masonry-grid">
+          {photos.map((photo, index) => (
+            <div 
+              class="masonry-item group cursor-pointer"
+              data-index={index}
+            >
+              <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                <img
+                  src={getImageUrl(photo)}
+                  alt={photo.titre || "Photo"}
+                  class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-500"
+                  loading="lazy"
+                />
+                
+                  {photo.legende && (
+                    <p class="text-white/90 text-sm">
+                      {photo.legende}
+                    </p>
+                  )}
+                  {photo.categorie && (
+                    <span class="inline-block mt-2 px-3 py-1 bg-accent text-white text-xs font-bold rounded-full w-fit">
+                      {photo.categorie}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-20">
+          <p class="text-xl text-gray-600 mb-6">Aucune photo pour le moment</p>
+          <p class="text-gray-500">Ajoutez des photos dans PocketBase</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <div id="lightbox" class="fixed inset-0 z-50 bg-black/95 items-center justify-center p-4" style="display: none;">
+    <button 
+      id="closeLightbox"
+      class="absolute top-6 right-6 text-white text-4xl hover:text-accent transition-colors z-10"
+      aria-label="Fermer"
+    >
+      ×
+    </button>
+    
+    <button 
+      id="prevPhoto"
+      class="absolute left-6 text-white text-4xl hover:text-accent transition-colors z-10"
+      aria-label="Photo précédente"
+    >
+      ‹
+    </button>
+    
+    <button 
+      id="nextPhoto"
+      class="absolute right-6 text-white text-4xl hover:text-accent transition-colors z-10"
+      aria-label="Photo suivante"
+    >
+      ›
+    </button>
+
+    <div class="max-w-6xl w-full">
+      <img 
+        id="lightboxImage"
+        src="" 
+        alt="" 
+        class="w-full h-auto max-h-[85vh] object-contain rounded-lg"
+      />
+      <div id="lightboxCaption" class="text-white text-center mt-6">
+        <h3 id="lightboxTitle" class="text-2xl font-bold mb-2"></h3>
+        <p id="lightboxLegende" class="text-gray-300"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="py-20 px-6 bg-base-200">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-6">Besoin d'un photographe ?</h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Je suis disponible pour vos projets photo
+      </p>
+      <a
+        href="/contact"
+        class="inline-block bg-accent text-white px-10 py-4 rounded-full font-bold shadow-lg hover:shadow-xl transition-all"
+      >
+        Me contacter
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Masonry Grid */
+  .masonry-grid {
+    column-count: 1;
+    column-gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .masonry-grid {
+      column-count: 2;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .masonry-grid {
+      column-count: 3;
+    }
+  }
+
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    width: 100%;
+  }
+
+  /* Animation d'apparition */
+  .masonry-item {
+    animation: fadeInUp 0.6s ease-out both;
+  }
+
+  .masonry-item:nth-child(1) { animation-delay: 0.1s; }
+  .masonry-item:nth-child(2) { animation-delay: 0.2s; }
+  .masonry-item:nth-child(3) { animation-delay: 0.3s; }
+  .masonry-item:nth-child(4) { animation-delay: 0.4s; }
+  .masonry-item:nth-child(5) { animation-delay: 0.5s; }
+  .masonry-item:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Lightbox */
+  #lightbox.active {
+    display: flex !important;
+  }
+</style>
+
+<script define:vars={{ photosData: photosData }}>
+  const photos = photosData;
+  let currentIndex = 0;
+
+  // Ouvrir lightbox
+  document.querySelectorAll('.masonry-item').forEach((item, index) => {
+    item.addEventListener('click', () => {
+      currentIndex = index;
+      showLightbox();
+    });
+  });
+
+  // Fermer lightbox
+  document.getElementById('closeLightbox')?.addEventListener('click', closeLightbox);
+  document.getElementById('lightbox')?.addEventListener('click', (e) => {
+    const target = e.target;
+    if (target && target.id === 'lightbox') closeLightbox();
+  });
+
+  // Navigation
+  document.getElementById('prevPhoto')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+    showLightbox();
+  });
+
+  document.getElementById('nextPhoto')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentIndex = (currentIndex + 1) % photos.length;
+    showLightbox();
+  });
+
+
+  document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox');
+    if (!lightbox?.classList.contains('active')) return;
+
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') {
+      currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+      showLightbox();
+    }
+    if (e.key === 'ArrowRight') {
+      currentIndex = (currentIndex + 1) % photos.length;
+      showLightbox();
+    }
+  });
+
+  function showLightbox() {
+    const photo = photos[currentIndex];
+    const lightbox = document.getElementById('lightbox');
+    const image = document.getElementById('lightboxImage');
+    const title = document.getElementById('lightboxTitle');
+    const legende = document.getElementById('lightboxLegende');
+
+    if (image) image.src = photo.image;
+    if (title) title.textContent = photo.titre || '';
+    if (legende) legende.textContent = photo.legende || '';
+    
+    if (lightbox) {
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox')?.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+</script>
