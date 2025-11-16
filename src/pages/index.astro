@@ -19,20 +19,17 @@ try {
       `${POCKETBASE_URL}/api/collections/logiciels/records?perPage=3&sort=-created`
     ),
   ]);
-
-  const projetsData = await projetsRes.json();
-  const logicielsData = await logicielsRes.json();
-
-  projets = projetsData.items || [];
-  logiciels = logicielsData.items || [];
+  projets = (await projetsRes.json()).items || [];
+  logiciels = (await logicielsRes.json()).items || [];
 } catch (err) {
   console.error("Erreur fetch:", err);
 }
 ---
 
 <Layout title="Accueil - Eloïs Henry">
+  <!-- Hero -->
   <section
-    class="hero min-h-screen flex flex-col items-center justify-center py-20 px-4"
+    class="min-h-screen flex flex-col items-center justify-center py-20 px-4"
   >
     <img
       src="/3D_no.png"
@@ -41,249 +38,307 @@ try {
     />
 
     <div class="text-center mt-20 px-4">
-      <p class="subtitle-script text-7xl mb-8">
-        Filmer. <span class="text-neutral">Créer.</span>
+      <p class="subtitle-script text-5xl md:text-7xl mb-12 text-gray-800">
+        Filmer. <span class="text-gray-900">Créer.</span>
         <span class="text-primary">Partager.</span>
       </p>
 
-      <div class="flex gap-4 justify-center flex-wrap">
-        <a href="#qui-suis-je" class="btn btn-primary">
-          <img src="/Group.png" alt="Scroll" class="w-6 h-6 inline" />
-        </a>
-      </div>
+      <a
+        href="#qui-suis-je"
+        class="inline-block p-4 rounded-full border-2 border-black hover:bg-black hover:border-black transition-all duration-300 group"
+      >
+        <svg
+          class="w-6 h-6 group-hover:text-white transition-colors"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+      </a>
     </div>
   </section>
 
-  <!-- QUI SUIS-JE -->
+  <!-- Qui suis-je -->
   <section id="qui-suis-je" class="py-20 px-6 bg-base-100">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="text-5xl md:text-6xl font-bold mb-4">
-          Communicante & <span class="text-primary">UX Designer</span>
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16">
+        <span class="text-sm uppercase tracking-widest font-bold text-primary"
+          >À propos</span
+        >
+        <h2 class="text-5xl md:text-7xl font-black mb-6 mt-4 leading-tight">
+          Communicante &<br /><span class="text-primary">UX Designer</span>
         </h2>
-
         <div
-          class="flex items-center justify-center gap-6 mt-8 text-lg font-semibold"
+          class="flex items-center gap-6 text-base font-medium text-gray-600"
         >
           <span>18 ans</span>
-          <div class="w-px h-12 bg-accent"></div>
-          <Fleur size="40" />
-          <div class="w-px h-12 bg-accent"></div>
+          <div class="w-1 h-1 bg-primary rounded-full"></div>
+          <Fleur size="32" />
+          <div class="w-1 h-1 bg-primary rounded-full"></div>
           <span>Étudiante en 2ᵉ année BUT MMI</span>
         </div>
       </div>
 
-      <div class="bg-secondary rounded-3xl p-8 md:p-12 shadow-xl">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div class="flex justify-center">
-            <img
-              src="/photoaccueil.png"
-              alt="Eloïs Henry"
-              class="w-72 h-auto rounded-3xl shadow-lg hover:scale-105 transition-transform duration-300"
-            />
-          </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <img
+            src="/photoaccueil.png"
+            alt="Eloïs Henry"
+            class="w-full h-auto rounded-3xl shadow-lg"
+          />
+        </div>
 
-          <div>
-            <h3 class="text-3xl font-bold mb-6">
-              Hello, moi c'est <span class="text-primary">Eloïs</span>
-            </h3>
+        <div class="space-y-6">
+          <h3 class="text-4xl md:text-5xl font-black leading-tight">
+            Hello, moi c'est <span class="text-primary">Eloïs</span>
+          </h3>
 
-            <p class="text-lg leading-relaxed mb-8 text-gray-900">
-              Actuellement étudiante en 2ᵉ année de BUT MMI (Métiers du
-              Multimédia et de l'Internet), je suis passionnée par la création
-              de contenu, le design d'expérience et la communication visuelle.
-              Je mets mes compétences au service de projets concrets et
-              créatifs.
-            </p>
+          <p class="text-lg text-gray-700 leading-relaxed">
+            Actuellement étudiante en 2ᵉ année de <strong>BUT MMI</strong> (Métiers
+            du Multimédia et de l'Internet), je suis passionnée par la création de
+            contenu, le design d'expérience et la communication visuelle.
+          </p>
 
-            <a
-              href="/apropos"
-              class="inline-block bg-accent text-white px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all"
+          <div class="flex flex-wrap gap-3">
+            <span
+              class="px-4 py-2 bg-base-200 rounded-full text-sm font-semibold"
+              >Design UI/UX</span
             >
-              En savoir plus →
-            </a>
+            <span
+              class="px-4 py-2 bg-base-200 rounded-full text-sm font-semibold"
+              >Création de contenu</span
+            >
+            <span
+              class="px-4 py-2 bg-base-200 rounded-full text-sm font-semibold"
+              >Communication visuelle</span
+            >
           </div>
+
+          <a
+            href="/apropos"
+            class="inline-flex items-center gap-3 bg-black text-white px-8 py-4 font-bold uppercase tracking-wider hover:bg-primary transition-all duration-300"
+          >
+            En savoir plus
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- COMPÉTENCES -->
-  <section class="py-20 px-6">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 class="text-4xl md:text-5xl font-bold mb-4">
+  <!-- Compétences -->
+  <section class="py-20 px-6 bg-base-200">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16">
+        <span class="text-sm uppercase tracking-widest font-bold text-accent"
+          >Expertise</span
+        >
+        <h2 class="text-5xl md:text-7xl font-black mb-4 mt-4">
           Mes <span class="text-primary">Compétences</span>
         </h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p class="text-xl text-gray-600 max-w-2xl">
           Une sélection des outils que je maîtrise pour donner vie à vos projets
         </p>
       </div>
 
-      {
-        logiciels.length > 0 ? (
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {logiciels.map((logiciel, index) => {
-              const couleurs = ["primary", "accent", "secondary"];
-              const couleur = couleurs[index % couleurs.length];
-
-              return (
-                <LogicielCard
-                  nom={logiciel.nom_logiciel || "Logiciel"}
-                  icone={
-                    logiciel.icone
-                      ? `${POCKETBASE_URL}/api/files/${logiciel.collectionId}/${logiciel.id}/${logiciel.icone}`
-                      : undefined
-                  }
-                  description={logiciel.description || ""}
-                  nom_logiciel={logiciel.nom_logiciel}
-                  couleurBordure={couleur}
-                />
-              );
-            })}
-          </div>
-        ) : (
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div class="bg-base-100 border-4 border-primary rounded-3xl p-6">
-              <h3 class="text-xl font-bold mb-2">Figma</h3>
-              <p class="text-sm text-gray-600">Design UI/UX et prototypage</p>
-            </div>
-
-            <div class="bg-base-100 border-4 border-accent rounded-3xl p-6">
-              <h3 class="text-xl font-bold mb-2">Illustrator</h3>
-              <p class="text-sm text-gray-600">
-                Création graphique vectorielle
-              </p>
-            </div>
-
-            <div class="bg-base-100 border-4 border-secondary rounded-3xl p-6">
-              <h3 class="text-xl font-bold mb-2">Premiere Pro</h3>
-              <p class="text-sm text-gray-600">Montage vidéo professionnel</p>
-            </div>
-          </div>
-        )
-      }
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        {
+          logiciels.map((logiciel: any, index: number) => (
+            <LogicielCard
+              nom={logiciel.nom_logiciel || "Logiciel"}
+              icone={
+                logiciel.icone
+                  ? `${POCKETBASE_URL}/api/files/${logiciel.collectionId}/${logiciel.id}/${logiciel.icone}`
+                  : undefined
+              }
+              description={logiciel.description || ""}
+              nom_logiciel={logiciel.nom_logiciel}
+              couleurBordure={["primary", "accent", "secondary"][index % 3]}
+            />
+          ))
+        }
+      </div>
 
       <div class="text-center">
         <a
           href="/apropos"
-          class="inline-block bg-black text-white px-10 py-4 font-bold uppercase tracking-wider hover:bg-primary hover:shadow-[4px_4px_0px_0px_rgba(255,7,111,1)] transition-all duration-300 rounded-4xl mt-8"
+          class="inline-flex items-center gap-3 bg-black text-white px-10 py-4 font-bold uppercase tracking-wider hover:bg-primary transition-all duration-300"
         >
           Voir toutes mes compétences
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
         </a>
       </div>
     </div>
   </section>
 
+  <!-- Projets -->
   <section class="py-20 px-6 bg-base-100">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex flex-col md:flex-row items-end justify-between mb-12">
+    <div class="max-w-7xl mx-auto">
+      <div
+        class="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-6"
+      >
         <div>
-          <h2 class="text-4xl md:text-5xl font-bold mb-2">
+          <span
+            class="text-sm uppercase tracking-widest font-bold text-secondary"
+            >Portfolio</span
+          >
+          <h2 class="text-5xl md:text-7xl font-black mb-4 mt-4">
             Mes <span class="text-primary">Projets</span>
           </h2>
-          <p class="text-lg text-gray-600">
+          <p class="text-xl text-gray-600">
             Une sélection de mes réalisations récentes
           </p>
         </div>
 
         <a
           href="/projets/projets"
-          class="btn btn-outline btn-primary mt-4 md:mt-0"
+          class="inline-flex items-center gap-2 px-6 py-3 border-2 border-black hover:bg-black hover:text-white font-bold uppercase tracking-wide transition-all duration-300"
         >
-          Voir tous les projets →
+          Tous les projets
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
         </a>
       </div>
 
-      {
-        projets && projets.length > 0 ? (
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {projets.map((p) => (
-              <Cardprojet projet={p} />
-            ))}
-          </div>
-        ) : (
-          <div class="text-center py-16 bg-base-200 rounded-3xl">
-            <p class="text-gray-600 mb-6 text-lg">Aucun projet trouvé</p>
-            <p class="text-sm text-gray-500 mb-6">
-              Vérifiez que PocketBase est démarré
-            </p>
-            <a href="/projets" class="btn btn-primary">
-              Explorer les projets
-            </a>
-          </div>
-        )
-      }
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {projets.map((p: any) => <Cardprojet projet={p} />)}
+      </div>
     </div>
   </section>
 
-  <section class="py-20 px-6 bg-accent">
-    <div class="max-w-6xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+  <!-- Contact -->
+  <section class="py-20 px-6 bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div>
-          <h4 class="text-3xl md:text-4xl mb-6 text-base-100">
-            Un projet en tête ?
-          </h4>
-          <p class="text-lg mb-8 text-base-100">
+          <span class="text-sm uppercase tracking-widest font-bold text-primary"
+            >Contact</span
+          >
+          <h2 class="text-4xl md:text-6xl font-black mb-6 mt-4 leading-tight">
+            Un projet<br />en tête ?
+          </h2>
+          <p class="text-xl text-gray-300 mb-10">
             N'hésitez pas à me contacter pour en discuter !
           </p>
 
           <div class="flex flex-wrap gap-4">
             <a
               href="/contact"
-              class="bg-primary text-white px-8 py-4 rounded-full font-bold shadow-md hover:shadow-lg transition-all"
+              class="inline-flex items-center gap-3 bg-primary text-white px-8 py-4 font-bold uppercase tracking-wide hover:bg-primary/90 transition-all duration-300"
             >
               Me contacter
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              </svg>
             </a>
 
             <a
               href="/cv_elois-henry.pdf"
               download
-              class="bg-base-100 text-black px-8 py-4 rounded-full font-bold shadow-md hover:shadow-lg transition-all"
+              class="inline-flex items-center gap-3 bg-white text-black px-8 py-4 font-bold uppercase tracking-wide hover:bg-gray-100 transition-all duration-300"
             >
               Télécharger mon CV
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                ></path>
+              </svg>
             </a>
           </div>
         </div>
 
-        <div class="border-l-4 border-secondary pl-8">
-          <h4 class="text-2xl md:text-3xl text-base-100 mb-4">Me suivre</h4>
-          <p class="text-lg mb-8 text-base-100">
+        <div class="border-l-2 border-white/20 pl-12">
+          <h3 class="text-3xl font-black mb-4">Me suivre</h3>
+          <p class="text-lg text-gray-300 mb-8">
             Retrouvez-moi sur les réseaux
           </p>
 
-          <div class="flex gap-6">
+          <div class="flex gap-4">
             <a
-              href="https://behance.net/eloishenry"
+              href="https://www.behance.net/eloshenry1"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-16 h-16 bg-primary border-2 rounded-full flex items-center justify-center hover:border-accent hover:scale-110 transition-all shadow-md"
+              class="w-14 h-14 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300"
               aria-label="Behance"
             >
-              <img src="/mage_behance.svg" alt="Behance" class="w-8 h-8" />
+              <img src="/mage_behance.svg" alt="Behance" class="w-7 h-7" />
             </a>
 
             <a
-              href="https://linkedin.com/in/elois-henry"
+              href="https://www.linkedin.com/in/eloïs-henry-9371582b2"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-16 h-16 bg-primary border-2 rounded-full flex items-center justify-center hover:border-accent hover:scale-110 transition-all shadow-md"
+              class="w-14 h-14 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300"
               aria-label="LinkedIn"
             >
-              <img src="/mdi_linkedin.svg" alt="LinkedIn" class="w-8 h-8" />
+              <img src="/mdi_linkedin.svg" alt="LinkedIn" class="w-7 h-7" />
             </a>
 
             <a
-              href="https://instagram.com/elois.henry"
+              href="https://instagram.com/elois_hry"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-16 h-16 bg-primary border-2 rounded-full flex items-center justify-center hover:border-accent hover:scale-110 transition-all shadow-md"
+              class="w-14 h-14 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300"
               aria-label="Instagram"
             >
               <img
                 src="/ri_instagram-fill.svg"
                 alt="Instagram"
-                class="w-8 h-8"
+                class="w-7 h-7"
               />
             </a>
           </div>
