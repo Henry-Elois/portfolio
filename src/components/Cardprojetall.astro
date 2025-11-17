@@ -1,6 +1,4 @@
 ---
-import Fleur from "./Fleur.astro";
-
 interface Props {
   projet: any;
   index?: number;
@@ -20,93 +18,46 @@ const imageUrl = imageFile
 
 // Infos du projet
 const titre = projet?.titre ?? "Projet";
-const description = projet?.description ?? "";
-const annee = new Date(projet?.created || Date.now()).getFullYear();
-
-// Couleurs alternées pour les bordures ET les fleurs
-const couleurs = ["primary", "accent", "secondary"];
-const couleur = couleurs[index % couleurs.length];
-
-// Couleurs CSS pour les fleurs (pétales et centre)
-const fleursConfig = [
-  { petal: "var(--color-primary)", centre: "var(--color-secondary)" }, // Rose + Jaune
-  { petal: "var(--color-accent)", centre: "var(--color-primary)" }, // Bleu + Rose
-  { petal: "var(--color-secondary)", centre: "var(--color-accent)" }, // Jaune + Bleu
-];
-
-const fleurConfig = fleursConfig[index % fleursConfig.length];
+const categorie = projet?.categorie ?? "Projet";
 ---
-
+<div class="border-2 border-black rounded-3xl p-4 transition-colors duration-300 hover:border-primary">
 <a
   href={`/projets/${projet?.id}`}
-  class={`card-projet card-projet-${couleur} group relative bg-base-100 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300`}
+  class="card-projet group block"
 >
-  <!-- Badge année -->
-  <div class="absolute top-4 right-4 z-20">
-    <div
-      class="bg-base-100 rounded-full px-4 py-2 shadow-md border-2 border-gray-200"
-    >
-      <span class="font-bold text-sm">{annee}</span>
-    </div>
-  </div>
-
-
-  <figure class="relative w-50 h-50  overflow-hidden bg-base-200">
-    <img src={imageUrl} alt={titre} class="w-full h-full object-cover" />
+  <!-- Image grande -->
+  <figure class="relative w-full aspect-[4/3] overflow-hidden rounded-2xl bg-base-200 mb-6">
+    <img 
+      src={imageUrl} 
+      alt={titre} 
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+    />
   </figure>
 
-  <!-- Contenu -->
-  <div class="p-6">
-    <!-- Fleur + Titre -->
-    <div class="flex items-start gap-3 mb-3">
-      <div class="flex-shrink-0">
-        <Fleur
-          petal={fleurConfig.petal}
-          centre-fleur={fleurConfig.centre}
-          size="48"
-        />
-      </div>
-      <div class="flex-1">
-        <h4 class="text-xl md:text-xl font-bold leading-tight">
-          {titre}
-        </h4>
-      </div>
-    </div>
+  <!-- Contenu en bas -->
+  <div class="space-y-2">
+    <!-- Catégorie -->
+    <p class="text-sm text-gray-500 font-medium">
+      {categorie}
+    </p>
 
-    <!-- Description -->
-    {
-      description && (
-        <p class="text-sm text-gray-600 line-clamp-2 mb-4">{description}</p>
-      )
-    }
+    <!-- Titre -->
+    <h4 class="text-2xl md:text-2xl font-bold leading-tight group-hover:text-accent transition-colors">
+      {titre}
+    </h4>
+
+    <!-- Lien "See more" avec flèche -->
+    <div class="flex items-center gap-2 text-sm font-semibold border-b-2 border-black pb-1 w-fit group-hover:border-accent group-hover:text-accent transition-colors">
+      <span>See more</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    </div>
   </div>
 </a>
-
+</div>
 <style>
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
   .card-projet {
-    border: 4px solid transparent;
-    transition: border-color 0.3s ease;
-  }
-
-  /* Bordure rose au hover */
-  .card-projet-primary:hover {
-    border-color: var(--color-primary);
-  }
-
-  /* Bordure bleue au hover */
-  .card-projet-accent:hover {
-    border-color: var(--color-accent);
-  }
-
-  /* Bordure jaune au hover */
-  .card-projet-secondary:hover {
-    border-color: var(--color-secondary);
+    transition: all 0.3s ease;
   }
 </style>
