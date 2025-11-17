@@ -9,14 +9,12 @@ const { projet, index = 0 } = Astro.props;
 const POCKETBASE_URL =
   import.meta.env.PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090";
 
-// Récupération de l'image
 const imageFile = projet?.image_card;
 const collectionId = projet?.collectionId ?? "projets";
 const imageUrl = imageFile
   ? `${POCKETBASE_URL}/api/files/${collectionId}/${projet.id}/${imageFile}`
   : "/placeholder-project.png";
 
-// Infos du projet
 const titre = projet?.titre ?? "Projet";
 const categorie = projet?.categorie ?? "Projet";
 ---
@@ -25,7 +23,6 @@ const categorie = projet?.categorie ?? "Projet";
   href={`/projets/${projet?.id}`}
   class="card-projet group block"
 >
-  <!-- Image grande -->
   <figure class="relative w-full aspect-[4/3] overflow-hidden rounded-2xl bg-base-200 mb-6">
     <img 
       src={imageUrl} 
@@ -34,21 +31,17 @@ const categorie = projet?.categorie ?? "Projet";
     />
   </figure>
 
-  <!-- Contenu en bas -->
   <div class="space-y-2">
-    <!-- Catégorie -->
     <p class="text-sm text-gray-500 font-medium">
       {categorie}
     </p>
 
-    <!-- Titre -->
     <h4 class="text-2xl md:text-2xl font-bold leading-tight group-hover:text-accent transition-colors">
       {titre}
     </h4>
 
-    <!-- Lien "See more" avec flèche -->
     <div class="flex items-center gap-2 text-sm font-semibold border-b-2 border-black pb-1 w-fit group-hover:border-accent group-hover:text-accent transition-colors">
-      <span>See more</span>
+      <span>Voir le projet</span>
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
       </svg>
