@@ -1,6 +1,5 @@
 ---
 import Layoutprojet from "../../layouts/Layoutprojet.astro";
-import Fleur from "../../components/Fleur.astro";
 import pb from "../../../utils/pb";
 
 export async function getStaticPaths() {
@@ -19,203 +18,173 @@ export async function getStaticPaths() {
   }
 }
 
-// récupère le projet injecté par getStaticPaths / SSR
 const { projet } = Astro.props;
 
-// base URL PocketBase (important pour construire l'URL complète des fichiers)
 const POCKETBASE_URL =
   import.meta.env.PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090";
 
-// helper pour construire l'URL d'une image (encode correctement le nom de fichier)
-function getImageUrl(file) {
+function getImageUrl(file: string) {
   if (!file || !projet) return null;
   const coll = projet.collectionId ?? "projets";
   return `${POCKETBASE_URL}/api/files/${coll}/${projet.id}/${encodeURIComponent(file)}`;
 }
 
-// Récupérer les logiciels associés (expand si présent)
-let logiciels = [];
-if (projet?.expand?.logiciels) {
-  logiciels = Array.isArray(projet.expand.logiciels)
-    ? projet.expand.logiciels
-    : [projet.expand.logiciels];
+function getLogicielIconUrl(logiciel: any) {
+  if (!logiciel?.icone) return null;
+  return `${POCKETBASE_URL}/api/files/${logiciel.collectionId}/${logiciel.id}/${encodeURIComponent(logiciel.icone)}`;
 }
+
+const images = [
+  projet?.image1,
+  projet?.image2,
+  projet?.image_card,
+  projet?.image3,
+  projet?.image4,
+].filter(Boolean);
+
+const logiciels = projet?.expand?.logiciels
+  ? Array.isArray(projet.expand.logiciels)
+    ? projet.expand.logiciels
+    : [projet.expand.logiciels]
+  : [];
 ---
 
 <Layoutprojet title={`${projet.titre} - Eloïs Henry`}>
-  
-  <section class="py-12 px-6">
-    <div class="max-w-screen-xl mx-auto">
-      <h1 class="text-xl md:text-5xl font-bold mb-20">
-        {projet.titre}
-      </h1>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div class="flex justify-center">
+  <section class="min-h-screen py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div class="lg:sticky lg:top-24 space-y-8">
+          <div class="space-y-4">
+            <h4 class="text-xl md:text-3xl font-bold leading-tight">
+              {projet.titre}
+            </h4>
+
+            {
+              projet.lien && (
+                <a
+                  href={projet.lien}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center mt-5 text-accent px-6 py-3 font-semibold border-2 rounded-sm border-accent hover:border-transparent hover:bg-primary hover:text-accent-content transition-all duration-300 focus:outline-none"
+                >
+                  Voir le projet
+                </a>
+              )
+            }
+          </div>
+
+          <div class="prose prose-lg max-w-none">
+            <p class="text-gray-700 leading-relaxed text-m">
+              {projet.description}
+            </p>
+
+            {
+              projet.description_2 && (
+                <p class="text-gray-700 leading-relaxed mt-4 text-sm">
+                  {projet.description_2}
+                </p>
+              )
+            }
+          </div>
+
           {
-            projet?.image_hero ? (
-              <img
-                src={getImageUrl(projet.image_hero)}
-                alt={projet.titre}
-                class="max-w-md w-full rounded-3xl shadow-2xl object-cover"
-                loading="lazy"
-              />
-            ) : (
-              <div class="w-full max-w-md h-96 bg-base-200 rounded-3xl flex items-center justify-center">
-                <span class="text-gray-400">Image du projet</span>
+            logiciels.length > 0 && (
+              <div class="space-y-4">
+                <h4 class="text-sm font-bold">Logiciels utilisés</h4>
+                <div class="grid grid-cols-2 gap-4">
+                  {logiciels.map((logiciel: any) => {
+                    const iconUrl = getLogicielIconUrl(logiciel);
+                    return (
+                      <div class="flex items-center gap-3 p-3 bg-base-200 rounded-lg hover:bg-accent hover:text-white transition-colors">
+                        {iconUrl && (
+                          <img
+                            src={iconUrl}
+                            alt={logiciel.nom_logiciel}
+                            class="w-8 h-8 object-contain"
+                          />
+                        )}
+                        <span class="text-sm font-semibold">
+                          {logiciel.nom_logiciel || logiciel.description}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )
           }
         </div>
 
-        <!-- Colonne droite : Logiciels utilisés -->
-        <div class="flex flex-col gap-4">
-          <h2 class="text-2xl font-bold mb-4">Logiciels utilisés</h2>
-          <div class="flex flex-wrap gap-3">
-            {
-              logiciels.length > 0 ? (
-                logiciels.map((logiciel: any) => (
-                  <span class="badge badge-primary badge-lg px-6 py-4 font-bold text-white">
-                    {logiciel.nom_logiciel || logiciel.description}
-                  </span>
-                ))
-              ) : (
-                <>
-                  <span class="badge badge-accent badge-lg px-6 py-4 font-bold text-white">
-                    Visual studio code
-                  </span>
-                  <span class="badge badge-outline badge-lg px-6 py-4 font-bold">
-                    Notion
-                  </span>
-                  <span class="badge badge-secondary badge-lg px-6 py-4 font-bold">
-                    Illustrator
-                  </span>
-                  <span class="badge badge-primary badge-lg px-6 py-4 font-bold text-white">
-                    Figma
-                  </span>
-                  <span class="badge bg-black text-white badge-lg px-6 py-4 font-bold">
-                    PocketBase
-                  </span>
-                </>
-              )
-            }
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Bouton CTA -->
-  <section class="py-8 px-6 text-center">
-    <a
-      href="#details"
-      class="btn btn-primary btn-lg rounded-full px-8 font-bold shadow-lg"
-    >
-      Découvrir Echo Safe →
-    </a>
-  </section>
-
-  <!-- Section Description principale -->
-  <section id="details" class="py-16 px-6 bg-base-100">
-    <div class="max-w-4xl mx-auto">
-      <div class="prose prose-lg max-w-none">
-        <p class="text-lg leading-relaxed mb-6">
-          {projet.description}
-        </p>
-
-        {
-          projet.description_2 && (
-            <p class="text-lg leading-relaxed mb-6">{projet.description_2}</p>
-          )
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Section avec mockups multiples -->
-  <section class="py-16 px-6">
-    <div class="max-w-screen-xl mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Bloc 1 - Bleu -->
-        <div
-          class="bg-accent rounded-3xl p-8 flex items-center justify-center min-h-64"
-        >
+        <div class="space-y-8">
           {
-            projet.maquette && (
-              <img
-                src={getImageUrl(projet.maquette)}
-                alt="Maquette"
-                class="max-w-full h-auto"
-              />
+            images.length > 0 ? (
+              images.map((image: string, index: number) => (
+                <div class="image-fade-in rounded-2xl overflow-hidden">
+                  <img
+                    src={getImageUrl(image)}
+                    alt={`${projet.titre} - Image ${index + 1}`}
+                    class="w-4xlh-auto object-cover transition-transform duration-700"
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                </div>
+              ))
+            ) : (
+              <div class="w-full h-96 bg-base-200 rounded-2xl flex items-center justify-center">
+                <span class="text-gray-400">Aucune image disponible</span>
+              </div>
+            )
+          }
+
+          {
+            projet?.logo && (
+              <div class="rounded-2xl overflow-hidden bg-white p-8 shadow-xl">
+                <img
+                  src={getImageUrl(projet.logo)}
+                  alt={`${projet.titre} - Logo`}
+                  class="w-full h-auto object-contain max-h-32"
+                />
+              </div>
             )
           }
         </div>
-
-        <!-- Bloc 2 - Rose avec mockup -->
-        <div
-          class="bg-primary/10 rounded-3xl p-8 flex items-center justify-center min-h-64"
-        >
-          <div class="text-center">
-            <p class="text-gray-600">Mockup de l'application</p>
-          </div>
-        </div>
-
-        <!-- Bloc 3 - Pêche -->
-        <div
-          class="bg-secondary/20 rounded-3xl p-8 flex items-center justify-center min-h-64"
-        >
-          <div class="text-center">
-            <p class="text-gray-600">Détails du projet</p>
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <section class="py-16 px-6">
-    <div class="max-w-4xl mx-auto">
-      <div class="prose prose-lg max-w-none">
-        <p class="mb-6 leading-relaxed">
-          La réalisation d'Echo Safe a impliqué plusieurs étapes clés : une
-          réflexion autour de la <strong>communication</strong>, pour définir
-          une <strong>identité visuelle</strong> cohérente et impactante ; une gestion
-          du <strong>budget</strong>, afin de proposer un projet réaliste et
-          durable ; la conception d'une <strong>maquette</strong>, qui
-          matérialise l'expérience utilisateur et permet de tester l'ergonomie
-          avant le développement ; enfin, le <strong>code</strong>, qui donne
-          vie au projet en transformant les idées en une plateforme
-          fonctionnelle et accessible.
-        </p>
-
-        <p class="mb-6 leading-relaxed">
-          Chacune de ces étapes s'inscrit dans une démarche complète, mêlant <strong
-            >stratégie, créativité et technique</strong
-          >, afin de donner à Echo Safe toute sa portée.
-        </p>
-      </div>
+  <section class="py-20 px-6 bg-base-200">
+    <div class="max-w-7xl mx-auto text-center">
+      <h3 class="text-2xl font-bold mb-8">Découvrir d'autres projets</h3>
+      <a
+        href="/projets"
+        class="inline-block bg-black text-white px-8 py-4 rounded-full font-bold hover:bg-accent transition-colors"
+      >
+        Voir tous les projets
+      </a>
     </div>
   </section>
+</Layoutprojet>
 
-  <!-- Section Mockups finaux -->
-  <section class="py-16 px-6 bg-primary/5">
-    <div class="max-w-screen-xl mx-auto">
-      <div class="flex flex-wrap items-end justify-center gap-8">
-        {/* Mockups d'écrans */}
-        <div class="text-center">
-          <p class="text-sm text-gray-500 mb-8">
-            Ce projet de groupe a été réalisé dans le cadre d'un projet
-            universitaire en groupe avec Mathilde Gangloff et Bryan Thierry.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-  <section class="py-12 px-6 text-center">
-    <a
-      href="#"
-      class="btn btn-primary btn-lg rounded-full px-8 font-bold shadow-lg"
-    >
-      Accéder au site
-    </a>
-  </section>
-</Layout>
+  .image-fade-in {
+    animation: fadeInUp 0.8s ease-out both;
+  }
+
+  @media (min-width: 1024px) {
+    .lg\:sticky {
+      position: sticky;
+      top: 6rem;
+      align-self: start;
+    }
+  }
+</style>

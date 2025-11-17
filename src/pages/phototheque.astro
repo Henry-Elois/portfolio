@@ -1,5 +1,5 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layoutprojet from "../layouts/Layoutprojet.astro";
 import pb, { POCKETBASE_URL } from "../../utils/pb";
 
 interface Photo {
@@ -41,15 +41,23 @@ const photosData = photos.map(p => ({
 }));
 ---
 
-<Layout title="Photothèque - Eloïs Henry">
+<Layoutprojet title="Photothèque - Eloïs Henry">
   <section class="py-20 px-6">
     <div class="max-w-7xl mx-auto text-center">
-      <h1 class="text-6xl md:text-8xl font-bold mb-6">
-        Photo<span class="">thèque</span>
-      </h1>
-      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-        Une collection de moments capturés à travers mon objectif
+     <img
+        src="photo_hugo2.webp"
+        alt="Photo dans les montagnes par Eloïs Henry"
+        class="w-max h-max mx-auto mb-6"
+        />
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto m-18">
+        Cette page rassemble une sélection de photographies capturées au fil de mes explorations et projets personnels. Chaque image invite à la découverte d’un regard, d’une lumière ou d’un instant suspendu, avec cette volonté de saisir l’émotion brute du paysage ou de la rencontre
       </p>
+<img
+        src="image27.webp"
+        alt="photo de port grimaux par Eloïs Henry"
+        class="w-140 h-auto m-6 mx-auto"
+        />
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto m-18">À travers cette collection, je cherche à raconter des histoires visuelles authentiques où la nature, l’humain et le moment dialoguent. Chaque photo témoigne de mon approche : attentive aux détails, guidée par la curiosité et le plaisir de partager l’atmosphère unique d’un lieu ou d’une scène. </p>
     </div>
   </section>
 
@@ -148,7 +156,7 @@ const photosData = photos.map(p => ({
       </a>
     </div>
   </section>
-</Layout>
+</Layoutprojet>
 
 <style>
   /* Masonry Grid */

@@ -27,7 +27,6 @@ try {
 ---
 
 <Layout title="Accueil - Eloïs Henry">
-  <!-- Hero -->
   <section
     class="min-h-screen flex flex-col items-center justify-center py-20 px-4"
   >
@@ -44,7 +43,7 @@ try {
       </p>
 
       <a
-        href="#qui-suis-je"
+        href="/apropos"
         class="inline-block p-4 rounded-full border-2 border-black hover:bg-black hover:border-black transition-all duration-300 group"
       >
         <svg
@@ -63,33 +62,35 @@ try {
     </div>
   </section>
 
-  <!-- Qui suis-je -->
   <section id="qui-suis-je" class="py-20 px-6 bg-base-100">
     <div class="max-w-7xl mx-auto">
       <div class="mb-16">
-        <span class="text-sm uppercase tracking-widest font-bold text-primary"
-          >À propos</span
-        >
         <h2 class="text-5xl md:text-7xl font-black mb-6 mt-4 leading-tight">
-          Communicante &<br /><span class="text-primary">UX Designer</span>
+          Communicante & <br /><span class="text-primary">UX Designer</span>
         </h2>
         <div
           class="flex items-center gap-6 text-base font-medium text-gray-600"
         >
           <span>18 ans</span>
-          <div class="w-1 h-1 bg-primary rounded-full"></div>
           <Fleur size="32" />
-          <div class="w-1 h-1 bg-primary rounded-full"></div>
           <span>Étudiante en 2ᵉ année BUT MMI</span>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+        <div class="relative flex justify-center">
+          <div
+            class="absolute inset-0 bg-primary/12 rounded-full blur-3xl scale-110"
+          >
+          </div>
+          <div
+            class="absolute inset-0 bg-secondary/5 rounded-full blur-2xl scale-105 translate-x-4 translate-y-4"
+          >
+          </div>
           <img
             src="/photoaccueil.png"
             alt="Eloïs Henry"
-            class="w-full h-auto rounded-3xl shadow-lg"
+            class="relative w-auto h-auto rounded-3xl z-10"
           />
         </div>
 
@@ -142,16 +143,12 @@ try {
     </div>
   </section>
 
-  <!-- Compétences -->
-  <section class="py-20 px-6 bg-base-200">
+  <section class="py-20 px-6 bg-gradient-to-br from-primary/10 to-white">
     <div class="max-w-7xl mx-auto">
       <div class="mb-16">
-        <span class="text-sm uppercase tracking-widest font-bold text-accent"
-          >Expertise</span
-        >
-        <h2 class="text-5xl md:text-7xl font-black mb-4 mt-4">
+        <h3 class="text-5xl md:text-7xl font-black mb-4 mt-4">
           Mes <span class="text-primary">Compétences</span>
-        </h2>
+        </h3>
         <p class="text-xl text-gray-600 max-w-2xl">
           Une sélection des outils que je maîtrise pour donner vie à vos projets
         </p>
@@ -198,17 +195,12 @@ try {
     </div>
   </section>
 
-  <!-- Projets -->
   <section class="py-20 px-6 bg-base-100">
     <div class="max-w-7xl mx-auto">
       <div
         class="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-6"
       >
         <div>
-          <span
-            class="text-sm uppercase tracking-widest font-bold text-secondary"
-            >Portfolio</span
-          >
           <h2 class="text-5xl md:text-7xl font-black mb-4 mt-4">
             Mes <span class="text-primary">Projets</span>
           </h2>
@@ -243,14 +235,10 @@ try {
     </div>
   </section>
 
-  <!-- Contact -->
   <section class="py-20 px-6 bg-gray-900 text-white">
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div>
-          <span class="text-sm uppercase tracking-widest font-bold text-primary"
-            >Contact</span
-          >
           <h2 class="text-4xl md:text-6xl font-black mb-6 mt-4 leading-tight">
             Un projet<br />en tête ?
           </h2>
