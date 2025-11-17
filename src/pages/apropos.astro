@@ -41,7 +41,6 @@ const centresInteret = ["La lecture", "les voyages", "la photo et la vidéo"];
 ---
 
 <Layout title="À propos - Eloïs Henry">
-
   <section class="py-16 px-6 mb-10">
     <div
       class="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-12"
@@ -146,14 +145,14 @@ const centresInteret = ["La lecture", "les voyages", "la photo et la vidéo"];
       <h4 class="text-xl md:text-2xl font-bold text-center mb-12">
         Mes convictions
       </h4>
-      <div class="pt-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="pt-8 grid grid-cols-2 md:grid-cols-4 gap-5">
         {
           convictions.map((conviction) => (
             <div class="flex flex-col items-center">
               <div
-                class={`w-50 h-50 rounded-full border-8 border-${conviction.couleur} flex items-center justify-center mb-4 transition-transform hover:scale-110`}
+                class={`w-32 h-32 rounded-full border-8 border-${conviction.couleur} flex items-center justify-center mb-4 transition-transform hover:scale-110`}
               >
-                <span class="text-base font-bold text-center px-2">
+                <span class="text-sm font-bold text-center px-2">
                   {conviction.titre}
                 </span>
               </div>

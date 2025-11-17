@@ -1,36 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
-@import "tailwindcss";
-@plugin "daisyui";
-
-@plugin "daisyui/theme" {
-  name: "eloishenry";
-  default: true;
-  prefersdark: false;
-  color-scheme: "light";
-  --color-primary: #ff076f;
-  --color-primary-content: #ffffff;
-  --color-secondary: #ffc700;
-  --color-secondary-content: #000000;
-  --color-accent: #101828;
-  --color-accent-content: #ffffff;
-  --color-neutral: #000000;
-  --color-neutral-content: #ffffff;
-  --color-base-100: #fafafa;
-  --color-base-200: #f0f0f0;
-  --color-base-300: #e5e5e5;
-  --color-base-content: #000000;
-  --color-info: #3abff8;
-  --color-info-content: #ffffff;
-  --color-success: #36d399;
-  --color-success-content: #ffffff;
-  --color-warning: #fbbd23;
-  --color-warning-content: #000000;
-  --color-error: #f87272;
-  --color-error-content: #ffffff;
-  --radius-box: 1.5rem;
-  --radius-field: 9999px;
-  --border: 4px;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   html {

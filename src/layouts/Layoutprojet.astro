@@ -32,7 +32,7 @@ const currentYear = new Date().getFullYear();
   </head>
 
   <body class="bg-base-100 text-base-content leading-relaxed">
-        <header class="py-8 px-6 relative">
+    <header class="py-8 px-6 relative">
       <div class="max-w-7xl mx-auto flex items-center justify-between">
         <a
           href="/projets"
@@ -55,10 +55,10 @@ const currentYear = new Date().getFullYear();
           Retour
         </a>
 
-        <div class="absolute left-1/2 -translate-x-1/2">
+        <div class="flex items-center justify-center">
           <Fleur
-            petal="var(--color-secondary)"
-            centre-fleur="var(--color-primary)"
+            petal="#ffc700"
+            centre-fleur="#fAFAFA"
             size="56"
           />
         </div>
@@ -80,11 +80,7 @@ const currentYear = new Date().getFullYear();
           class="flex flex-col md:flex-row items-center justify-between gap-6"
         >
           <div class="flex items-center gap-4">
-            <Fleur
-              petal="var(--color-primary)"
-              centre-fleur="var(--color-secondary)"
-              size="48"
-            />
+            <Fleur petal="#FFD700" centre-fleur="#FFFFFF" size="48" />
             <p class="text-sm">© {currentYear} - Eloïs Henry</p>
           </div>
 
